@@ -4,7 +4,7 @@ package com.lpweb.mystic_tarot;
  * Hello world!
  *
  */
-public class App 
+public class MysticTarot 
 {
     public static void main( String[] args )
     {
