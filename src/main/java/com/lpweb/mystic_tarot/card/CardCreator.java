@@ -20,9 +20,12 @@ public class CardCreator {
             }
         }
 
+        System.out.print("Name: ");
+        String name = input.nextLine();
+
         System.out.print("Description: ");
         String description = input.nextLine();
 
-        return new Card(number, description);
+        return new Card(number, name, description);
     }
 }
