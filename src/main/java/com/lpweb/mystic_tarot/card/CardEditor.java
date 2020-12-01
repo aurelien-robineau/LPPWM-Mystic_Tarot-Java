@@ -44,5 +44,8 @@ public class CardEditor {
 
         System.out.print("New description: ");
         card.description = input.nextLine();
+
+        System.out.print("New image path: ");
+        card.imagePath = input.nextLine();
     }
 }

@@ -26,6 +26,9 @@ public class CardCreator {
         System.out.print("Description: ");
         String description = input.nextLine();
 
-        return new Card(number, name, description);
+        System.out.print("Image path: ");
+        String imagePath = input.nextLine();
+
+        return new Card(number, name, description, imagePath);
     }
 }
