@@ -47,5 +47,8 @@ public class CardEditor {
 
         System.out.print("New image path: ");
         card.imagePath = input.nextLine();
+
+        CardSerializer serializer = new CardSerializer(card);
+        serializer.save();
     }
 }
