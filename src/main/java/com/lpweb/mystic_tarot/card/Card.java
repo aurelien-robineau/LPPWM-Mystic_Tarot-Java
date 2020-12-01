@@ -5,9 +5,9 @@ package com.lpweb.mystic_tarot.card;
  */
 public class Card 
 {
-    private Integer number;
-    private String name;
-    private String description;
+    protected Integer number;
+    protected String name;
+    protected String description;
 
     public Card(Integer number, String name, String description) {
         this.number = number;

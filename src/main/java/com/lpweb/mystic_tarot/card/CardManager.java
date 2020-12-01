@@ -20,9 +20,10 @@ public class CardManager {
 
         while (this.isOpen) {
             System.out.println("* 1: Create new card");
-            System.out.println("* 2: Delete card");
-            System.out.println("* 3: Display cards");
-            System.out.println("* 4: Leave");
+            System.out.println("* 2: Edit card");
+            System.out.println("* 3: Delete card");
+            System.out.println("* 4: Display cards");
+            System.out.println("* 5: Leave");
     
             while (true) {
                 System.out.print("Action: ");
@@ -34,14 +35,18 @@ public class CardManager {
                         break;
                     }
                     else if (action.equals("2")) {
-                        this.deleteCard();
+                        this.editCard();
                         break;
                     }
                     else if (action.equals("3")) {
-                        this.displayCards();
+                        this.deleteCard();
                         break;
                     }
                     else if (action.equals("4")) {
+                        this.displayCards();
+                        break;
+                    }
+                    else if (action.equals("5")) {
                         this.close();
                         break;
                     }
@@ -67,24 +72,28 @@ public class CardManager {
         this.isOpen = false;
     }
 
-    public void removeCardByNumber(Integer cardNumber) throws Exception {
-        Integer numberOfCards = this.cards.size();
-
+    public Card getCardByNumber(Integer cardNumber) throws Exception {
         for (Card card : this.cards) {
             if (card.getNumber().equals(cardNumber)) {
-                this.cards.remove(card);
-                break;
+                return card;
             }
         }
 
-        if (numberOfCards.equals(this.cards.size())) {
-            throw new Exception("Card with number " + cardNumber + " cannot be found.");
-        }
+        throw new Exception("Card with number " + cardNumber + " cannot be found.");
+    }
+
+    public void removeCardByNumber(Integer cardNumber) throws Exception {
+        this.cards.remove(this.getCardByNumber(cardNumber));
     }
 
     private void createCard() {
         CardCreator creator = new CardCreator();
         this.cards.add(creator.createCard());
+    }
+
+    private void editCard() {
+        CardEditor editor = new CardEditor();
+        editor.editCard();
     }
 
     private void deleteCard() {
