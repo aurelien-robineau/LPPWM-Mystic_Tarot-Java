@@ -23,8 +23,6 @@ public class CardCreator {
         System.out.print("Description: ");
         String description = input.nextLine();
 
-        input.close();
-
         return new Card(number, description);
     }
 }
