@@ -1,13 +1,18 @@
 package com.lpweb.mystic_tarot;
 
+import com.lpweb.mystic_tarot.card.Card;
+import com.lpweb.mystic_tarot.card.CardCreator;
+
+
 /**
- * Hello world!
- *
+ * Mystic tarot game.
  */
 public class MysticTarot 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        CardCreator cardCreator = new CardCreator();
+        Card card = cardCreator.createCard();
+        System.out.println(card);
     }
 }
