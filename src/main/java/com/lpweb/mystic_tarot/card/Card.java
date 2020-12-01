@@ -1,10 +1,14 @@
 package com.lpweb.mystic_tarot.card;
 
+import java.io.Serializable;
+
 /**
  * Card of the tarot game.
  */
-public class Card 
+public class Card implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+
     protected Integer number;
     protected String name;
     protected String description;
