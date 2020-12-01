@@ -24,7 +24,6 @@ public class Card
     @Override
     public String toString() {
         return
-         this.getClass().getSimpleName() + " number " + this.number + ":\n" +
-         this.description;
+         this.getClass().getSimpleName() + " number " + this.number + ": " + this.description;
     }
 }
