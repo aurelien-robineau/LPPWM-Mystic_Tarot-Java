@@ -6,11 +6,13 @@ import java.util.Scanner;
 public class CardManager {
     private static final CardManager instance = new CardManager();
 
-    private ArrayList<Card> cards = new ArrayList<>();
+    private ArrayList<Card> cards;
 
     private Boolean isOpen = false;
 
-    private CardManager() {};
+    private CardManager() {
+        this.cards = CardSerializer.loadSavedCards();
+    };
 
     public void open() {
         this.isOpen = true;
