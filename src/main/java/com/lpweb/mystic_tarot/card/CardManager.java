@@ -22,8 +22,11 @@ public class CardManager {
             System.out.println("* 1: Create new card");
             System.out.println("* 2: Edit card");
             System.out.println("* 3: Delete card");
-            System.out.println("* 4: Display cards");
-            System.out.println("* 5: Leave");
+            System.out.println("* 4: Search card by number");
+            System.out.println("* 5: Search card by name");
+            System.out.println("* 6: Search card matching description");
+            System.out.println("* 7: Display cards");
+            System.out.println("* 8: Leave");
     
             while (true) {
                 System.out.print("Action: ");
@@ -43,10 +46,22 @@ public class CardManager {
                         break;
                     }
                     else if (action.equals("4")) {
-                        this.displayCards();
+                        this.searchCardByNumber();
                         break;
                     }
                     else if (action.equals("5")) {
+                        this.searchCardByName();
+                        break;
+                    }
+                    else if (action.equals("6")) {
+                        this.searchCardMatchingDescription();
+                        break;
+                    }
+                    else if (action.equals("7")) {
+                        this.displayCards();
+                        break;
+                    }
+                    else if (action.equals("8")) {
                         this.close();
                         break;
                     }
@@ -73,17 +88,46 @@ public class CardManager {
     }
 
     public Card getCardByNumber(Integer cardNumber) throws Exception {
-        for (Card card : this.cards) {
-            if (card.getNumber().equals(cardNumber)) {
-                return card;
-            }
+        CardSearcher searcher = new CardSearcher(this.cards);
+        Card card = searcher.get(cardNumber);
+
+        if (card.equals(null)) {
+            throw new Exception("Card with number " + cardNumber + " cannot be found.");
         }
 
-        throw new Exception("Card with number " + cardNumber + " cannot be found.");
+        return card;
+    }
+
+    public Card getCardByName(String name) throws Exception {
+        CardSearcher searcher = new CardSearcher(this.cards);
+        Card card = searcher.get(name);
+
+        if (card.equals(null)) {
+            throw new Exception("Card with name " + name + " cannot be found.");
+        }
+
+        return card;
+    }
+
+    public ArrayList<Card> getAllByMatchingDescription(String research) throws Exception {
+        CardSearcher searcher = new CardSearcher(this.cards);
+        ArrayList<Card> cards = searcher.getAllWhereDescriptionContains(research);
+
+        if (cards.size() == 0) {
+            throw new Exception("No card matching given description.");
+        }
+
+        return cards;
     }
 
     public void removeCardByNumber(Integer cardNumber) throws Exception {
         this.cards.remove(this.getCardByNumber(cardNumber));
+    }
+
+    public void displayCards() {
+        for (Card card: this.cards) {
+            System.out.println(card);
+        }
     }
 
     private void createCard() {
@@ -101,9 +145,29 @@ public class CardManager {
         deletor.deleteCard();
     }
 
-    public void displayCards() {
-        for (Card card: this.cards) {
-            System.out.println(card);
+    private void searchCardByNumber() {
+        CardSearcher searcher = new CardSearcher(this.cards);
+        Card card = searcher.searchByNumber();
+        System.out.println(!card.equals(null) ? card : "No card found.");
+    }
+
+    private void searchCardByName() {
+        CardSearcher searcher = new CardSearcher(this.cards);
+        Card card = searcher.searchByName();
+        System.out.println(!card.equals(null) ? card : "No card found.");
+    }
+
+    private void searchCardMatchingDescription() {
+        CardSearcher searcher = new CardSearcher(this.cards);
+        ArrayList<Card> cards = searcher.searchByMatchingDescription();
+
+        if (cards.size() != 0) {
+            for (Card card: searcher.searchByMatchingDescription()) {
+                System.out.println(card);
+            };
+        }
+        else {
+            System.out.println("No card found.");
         }
     }
 }
