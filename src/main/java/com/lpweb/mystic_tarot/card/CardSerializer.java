@@ -23,12 +23,15 @@ public class CardSerializer {
      */
     private Card card;
 
+    private String cardFilename;
+
     /**
      * Public contrustor.
      * @param card the card to be managed by the CardSerializer.
      */
     public CardSerializer(Card card) {
         this.card = card;
+        this.cardFilename = cardSavePath + this.card.number + ".serial";
     }
 
     //--------------------------------------------------------------------------
@@ -41,7 +44,7 @@ public class CardSerializer {
      */
     public void save() {
         try {
-            FileOutputStream fos = new FileOutputStream(cardSavePath + this.card.number + ".serial");
+            FileOutputStream fos = new FileOutputStream(this.cardFilename);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
             try {
@@ -55,7 +58,17 @@ public class CardSerializer {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Card could not be saved.");
+            System.err.println("Card could not be saved.");
+        }
+    }
+
+    /**
+     * Deletes the serialization file of the card.
+     */
+    public void delete() {
+        File cardFile = new File(this.cardFilename);
+        if (!cardFile.delete()) {
+            System.err.println("Card file could not be deleted.");
         }
     }
 

@@ -12,20 +12,22 @@ public class CardDeletor {
 
     /**
      * Asks the card number to delete and delete the matching card.
+     * @return the deleted card or null if no card to delete.
      */
-    public void deleteCard() {
+    public Card deleteCard() {
         System.out.println("---- Card Deletor ----");
         CardManager cardManager = CardManager.getInstance();
         
         // No card
         if (cardManager.getCards().size() == 0) {
             System.out.println("No card to delete.");
-            return;
+            return null;
         }
 
         // Display all cards
         cardManager.displayCards();
 
+        Card deletedCard;
         Scanner input = MysticTarot.getScanner();
         Integer cardNumber;
         // Ask card number while invalid
@@ -34,7 +36,7 @@ public class CardDeletor {
             // Number must be an integer and exist
             try {
                 cardNumber = Integer.parseInt(input.nextLine());
-                cardManager.removeCardByNumber(cardNumber);
+                deletedCard = cardManager.removeCardByNumber(cardNumber);
                 break;
             } catch (NumberFormatException e) {
                 System.err.println("Number must be an integer.");
@@ -42,5 +44,7 @@ public class CardDeletor {
                 System.err.println(e.getMessage());
             }
         }
+
+        return deletedCard;
     }
 }

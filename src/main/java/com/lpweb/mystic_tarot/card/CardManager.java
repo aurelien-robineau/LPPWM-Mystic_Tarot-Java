@@ -180,10 +180,14 @@ public class CardManager {
     /**
      * Removes a card with a given number.
      * @param cardNumber number of the card to get.
+     * @return the removed card.
      * @throws Exception If the given number matches no card.
      */
-    public void removeCardByNumber(Integer cardNumber) throws Exception {
-        this.cards.remove(this.getCardByNumber(cardNumber));
+    public Card removeCardByNumber(Integer cardNumber) throws Exception {
+        Card cardToRemove = this.getCardByNumber(cardNumber);
+        this.cards.remove(cardToRemove);
+
+        return cardToRemove;
     }
 
     /**
@@ -232,7 +236,10 @@ public class CardManager {
      */
     private void deleteCard() {
         CardDeletor deletor = new CardDeletor();
-        deletor.deleteCard();
+        Card deletedCard = deletor.deleteCard();
+
+        CardSerializer serializer = new CardSerializer(deletedCard);
+        serializer.delete();
     }
 
     /**
