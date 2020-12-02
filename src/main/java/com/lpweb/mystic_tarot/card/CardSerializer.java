@@ -8,22 +8,44 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+/**
+ * The CardSerializer class provides methods to manage Card class serialization,
+ * such as saving and loading card objects.
+ */
 public class CardSerializer {
+    /**
+     * Directory the cards are saved in.
+     */
     private static final String cardSavePath = "./data/cards/";
 
+    /**
+     * Card managed by the CardSerializer.
+     */
     private Card card;
 
+    /**
+     * Public contrustor.
+     * @param card the card to be managed by the CardSerializer.
+     */
     public CardSerializer(Card card) {
         this.card = card;
     }
 
+    //--------------------------------------------------------------------------
+    // Public methods
+    //--------------------------------------------------------------------------
+
+    /**
+     * Saves the card to a file.
+     * The file name is <number_of_the_card>.serial.
+     */
     public void save() {
         try {
             FileOutputStream fos = new FileOutputStream(cardSavePath + this.card.number + ".serial");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
             try {
-                oos.writeObject(card);
+                oos.writeObject(this.card);
                 oos.flush();
             } finally {
                 try {
@@ -37,13 +59,24 @@ public class CardSerializer {
         }
     }
 
+    //--------------------------------------------------------------------------
+    // Public static methods
+    //--------------------------------------------------------------------------
+
+    /**
+     * Loads all cards saved in files.
+     * @return the loaded cards
+     */
     public static ArrayList<Card> loadSavedCards() {
-        File dir = new File(cardSavePath);
-        File[] directoryListing = dir.listFiles();
+        File directory = new File(cardSavePath);
+        File[] files = directory.listFiles();
         ArrayList<Card> loadedCards = new ArrayList<>();
 
-        if (directoryListing != null) {
-            for (File file : directoryListing) {
+        // The provided directory really is a directory
+        if (files != null) {
+            // For each file of the directory
+            for (File file : files) {
+                // Try to load file if it is a card serialization file
                 if (getFileExtension(file.toString()).equals("serial")) {
                     try {
                         FileInputStream fis = new FileInputStream(file);
@@ -67,12 +100,18 @@ public class CardSerializer {
         return loadedCards;
     }
 
+    //--------------------------------------------------------------------------
+    // Private static methods
+    //--------------------------------------------------------------------------
+
+    /**
+     * Gets a file extension from a file name.
+     * The method only returns the string after the last dot.
+     * @param filename the name of the file
+     * @return the file extension or an empty string if no extension found.
+     */
     private static String getFileExtension(String filename) {
         String[] splittedFilename = filename.split("\\.");
-
-        for (String string : splittedFilename) {
-            System.out.println(string);
-        }
 
         if (splittedFilename.length == 0) {
             return "";

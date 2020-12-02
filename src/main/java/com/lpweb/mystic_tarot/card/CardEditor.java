@@ -4,22 +4,31 @@ import java.util.Scanner;
 
 import com.lpweb.mystic_tarot.MysticTarot;
 
+/**
+ * The CardEditor class provides a console interface to edit an existing card.
+ */
 public class CardEditor {
     public CardEditor() {};
 
+    /**
+     * Asks the number of the card to edit, then the new card values.
+     */
     public void editCard() {
         System.out.println("---- Card Editor ----");
         Scanner input = MysticTarot.getScanner();
         CardManager cardManager = CardManager.getInstance();
 
+        // No card
         if (cardManager.getCards().size() == 0) {
             System.out.println("No card to edit.");
             return;
         }
         
         Card card;
+        // Ask card number while invalid
         while (true) {
             System.out.print("Card number: ");
+            // Number must be an integer and exist
             try {
                 Integer cardNumber = Integer.parseInt(input.nextLine());
                 card = cardManager.getCardByNumber(cardNumber);
@@ -31,8 +40,10 @@ public class CardEditor {
             }
         }
 
+        // Ask new card number while invalid
         while (true) {
             System.out.print("New number: ");
+            // New number must be an integer
             try {
                 card.number = Integer.parseInt(input.nextLine());
                 break;
@@ -50,6 +61,7 @@ public class CardEditor {
         System.out.print("New image path: ");
         card.imagePath = input.nextLine();
 
+        // Save card
         CardSerializer serializer = new CardSerializer(card);
         serializer.save();
     }
