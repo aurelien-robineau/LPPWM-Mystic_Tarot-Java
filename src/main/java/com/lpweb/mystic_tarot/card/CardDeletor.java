@@ -8,7 +8,7 @@ import com.lpweb.mystic_tarot.MysticTarot;
  * The CardDeletor class provides a console interface to delete a card.
  */
 public class CardDeletor {
-    public CardDeletor() {};
+    protected CardDeletor() {};
 
     /**
      * Asks the card number to delete and delete the matching card.

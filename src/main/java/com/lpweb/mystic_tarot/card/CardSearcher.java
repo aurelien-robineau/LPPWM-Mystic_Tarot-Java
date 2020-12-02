@@ -15,10 +15,10 @@ public class CardSearcher {
     private ArrayList<Card> cards;
 
     /**
-     * Public constructor.
+     * Protected constructor.
      * @param cards the cards the CardSearcher will search into.
      */
-    public CardSearcher(ArrayList<Card> cards) {
+    protected CardSearcher(ArrayList<Card> cards) {
         this.cards = cards;
     };
 

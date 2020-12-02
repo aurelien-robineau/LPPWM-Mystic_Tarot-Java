@@ -26,10 +26,10 @@ public class CardSerializer {
     private String cardFilename;
 
     /**
-     * Public contrustor.
+     * Protected contrustor.
      * @param card the card to be managed by the CardSerializer.
      */
-    public CardSerializer(Card card) {
+    protected CardSerializer(Card card) {
         this.card = card;
         this.cardFilename = cardSavePath + this.card.number + ".serial";
     }

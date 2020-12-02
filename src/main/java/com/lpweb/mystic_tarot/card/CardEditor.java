@@ -8,7 +8,7 @@ import com.lpweb.mystic_tarot.MysticTarot;
  * The CardEditor class provides a console interface to edit an existing card.
  */
 public class CardEditor {
-    public CardEditor() {};
+    protected CardEditor() {};
 
     /**
      * Asks the number of the card to edit, then the new card values.

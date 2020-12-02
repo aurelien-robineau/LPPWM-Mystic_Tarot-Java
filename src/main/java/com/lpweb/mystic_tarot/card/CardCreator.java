@@ -8,7 +8,7 @@ import com.lpweb.mystic_tarot.MysticTarot;
  * The CardCreator class provides a console interface to create a new card.
  */
 public class CardCreator {
-    public CardCreator() {};
+    protected CardCreator() {};
 
     /**
      * Gets new card values from user input and create the new card.
