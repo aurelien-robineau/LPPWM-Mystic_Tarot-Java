@@ -30,14 +30,14 @@ public class CardSearcher {
     public Card searchByName() {
         System.out.println("---- Card Searcher (Name) ----");
 
-        Scanner input = new Scanner(System.in);
+        Scanner input = MysticTarot.getScanner();
         return this.get(input.nextLine());
     }
 
     public ArrayList<Card> searchByMatchingDescription() {
         System.out.println("---- Card Searcher (Matching Description) ----");
 
-        Scanner input = new Scanner(System.in);
+        Scanner input = MysticTarot.getScanner();
         return this.getAllWhereDescriptionContains(input.nextLine());
     }
 
