@@ -136,7 +136,7 @@ public class CardManager {
         CardSearcher searcher = new CardSearcher(this.cards);
         Card card = searcher.get(number);
 
-        if (card.equals(null)) {
+        if (card == null) {
             throw new Exception("Card with number " + number + " cannot be found.");
         }
 
