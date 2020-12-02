@@ -1,16 +1,15 @@
 package com.lpweb.mystic_tarot.card;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.Scanner;
+
+import com.lpweb.mystic_tarot.MysticTarot;
 
 public class CardCreator {
     public CardCreator() {};
 
     public Card createCard() {
         System.out.println("---- Card Creator ----");
-        Scanner input = new Scanner(System.in);
+        Scanner input = MysticTarot.getScanner();
 
         Integer number;
         while (true) {

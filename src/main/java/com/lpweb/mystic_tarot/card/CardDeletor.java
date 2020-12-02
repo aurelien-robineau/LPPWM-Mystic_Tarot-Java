@@ -2,6 +2,8 @@ package com.lpweb.mystic_tarot.card;
 
 import java.util.Scanner;
 
+import com.lpweb.mystic_tarot.MysticTarot;
+
 public class CardDeletor {
     public CardDeletor() {};
 
@@ -16,7 +18,7 @@ public class CardDeletor {
 
         cardManager.displayCards();
 
-        Scanner input = new Scanner(System.in);
+        Scanner input = MysticTarot.getScanner();
         Integer cardNumber;
         while (true) {
             System.out.print("Card number: ");

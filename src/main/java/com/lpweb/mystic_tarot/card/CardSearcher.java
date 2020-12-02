@@ -3,6 +3,8 @@ package com.lpweb.mystic_tarot.card;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.lpweb.mystic_tarot.MysticTarot;
+
 public class CardSearcher {
     private ArrayList<Card> cards;
 
@@ -13,7 +15,7 @@ public class CardSearcher {
     public Card searchByNumber() {
         System.out.println("---- Card Searcher (Number) ----");
 
-        Scanner input = new Scanner(System.in);
+        Scanner input = MysticTarot.getScanner();
         while (true) {
             System.out.print("Card number: ");
             try {

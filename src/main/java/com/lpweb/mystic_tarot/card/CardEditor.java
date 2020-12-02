@@ -2,12 +2,14 @@ package com.lpweb.mystic_tarot.card;
 
 import java.util.Scanner;
 
+import com.lpweb.mystic_tarot.MysticTarot;
+
 public class CardEditor {
     public CardEditor() {};
 
     public void editCard() {
         System.out.println("---- Card Editor ----");
-        Scanner input = new Scanner(System.in);
+        Scanner input = MysticTarot.getScanner();
         CardManager cardManager = CardManager.getInstance();
 
         if (cardManager.getCards().size() == 0) {

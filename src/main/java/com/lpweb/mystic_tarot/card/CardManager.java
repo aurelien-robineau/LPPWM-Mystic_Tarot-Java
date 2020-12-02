@@ -3,6 +3,8 @@ package com.lpweb.mystic_tarot.card;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.lpweb.mystic_tarot.MysticTarot;
+
 public class CardManager {
     private static final CardManager instance = new CardManager();
 
@@ -18,7 +20,7 @@ public class CardManager {
         this.isOpen = true;
 
         System.out.println("---- Card Manager ----");
-        Scanner input = new Scanner(System.in);
+        Scanner input = MysticTarot.getScanner();
 
         while (this.isOpen) {
             System.out.println("* 1: Create new card");
