@@ -3,6 +3,7 @@ package com.lpweb.mystic_tarot;
 import java.util.Scanner;
 
 import com.lpweb.mystic_tarot.card.CardManager;
+import com.lpweb.mystic_tarot.card.CardSerializer;
 
 
 /**
@@ -22,6 +23,7 @@ public class MysticTarot
         cardManager.open();
 
         scanner.close();
+        CardSerializer.cleanFiles();
     }
 
     public static Scanner getScanner() {

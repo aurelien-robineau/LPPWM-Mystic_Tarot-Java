@@ -46,6 +46,17 @@ public class Card implements Serializable
         this.imagePath   = imagePath;
     }
 
+    /**
+     * Constructs a new card from an existing card.
+     * @param card the card copied to the new card.
+     */
+    public Card(Card card) {
+        this.number      = card.number;
+        this.name        = card.name;
+        this.description = card.description;
+        this.imagePath   = card.imagePath;
+    }
+
     //--------------------------------------------------------------------------
     // Getters
     //--------------------------------------------------------------------------

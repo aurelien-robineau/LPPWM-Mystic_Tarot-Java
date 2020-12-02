@@ -9,10 +9,9 @@ public class CardDeletor {
     protected CardDeletor() {};
 
     /**
-     * Asks the card number to delete and delete the matching card.
-     * @return the deleted card or null if no card to delete.
+     * Asks the user a card number to delete and delete the card.
      */
-    public Card deleteCard() {
+    public void deleteCard() {
         UserInput input = new UserInput();
         CardManager cardManager = CardManager.getInstance();
 
@@ -20,13 +19,29 @@ public class CardDeletor {
         
         if (cardManager.getCards().size() == 0) {
             System.out.println("No card to delete.");
-            return null;
+            return;
         }
 
         cardManager.displayCards();
 
-        Integer cardNumber = input.getCardNumber("Card number");
-        
-        return cardManager.removeCardByNumber(cardNumber);
+        Integer number = input.getCardNumber("Card number");
+        Card card = cardManager.getCardByNumber(number);
+        this.delete(card);
+    }
+
+    /**
+     * Delete a card.
+     * Deleting includes removing the card from the card manager and deleting
+     * the card file.
+     * @param card the card to delete.
+     */
+    private void delete(Card card) {
+        CardManager cardManager = CardManager.getInstance();
+        CardSerializer serializer = new CardSerializer(card);
+
+        cardManager.getCards().remove(card);
+
+        // serializer.saveCardBinary();
+        serializer.deleteCardJSON();
     }
 }

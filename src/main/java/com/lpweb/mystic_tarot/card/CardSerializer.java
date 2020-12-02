@@ -167,7 +167,7 @@ public class CardSerializer {
             // For each file of the directory
             for (File file : files) {
                 // Try to load file if it is a card serialization JSON file
-                if (getFileExtension(file.toString()).equals("json")) {
+                if (getFileExtension(file.getName()).equals("json")) {
                     try (Reader reader = new FileReader(file)) {
                         Card card = gson.fromJson(reader, Card.class);
                         loadedCards.add(card);   
@@ -179,6 +179,37 @@ public class CardSerializer {
         }
 
         return loadedCards;
+    }
+
+    /**
+     * Delete old and invalid card files.
+     * Old card files are files with a number that do not match any of the card
+     * manager cards.
+     * Invalid card files are files with a name that do not respect the card
+     * file name syntax.
+     */
+    public static void cleanFiles() {
+        File directory = new File(cardSavePath);
+        File[] files = directory.listFiles();
+
+        // The provided directory really is a directory
+        if (files != null) {
+            // For each file of the directory
+            for (File file : files) {
+                try {
+                    // Delete card file if card is not in the card manager card list
+                    Integer number = getCardNumberFromFileName(file.getName());
+                    if (!CardManager.getInstance().cardNumberExists(number)) {
+                        file.delete();
+                    }
+                } catch (Exception e) {
+                    // Delete invalid card files, but omit hidden files
+                    if (file.getName().charAt(0) != '.') {
+                        file.delete();
+                    }
+                }
+            }
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -199,5 +230,27 @@ public class CardSerializer {
         }
 
         return splittedFilename[splittedFilename.length - 1];
+    }
+
+    /**
+     * Gets a card number from a file name.
+     * The method actually returns the string before the last dot as an integer.
+     * @param filename the name of the file.
+     * @return the card number for the filename.
+     * @throws Exception if the filename is invalid.
+     */
+    private static Integer getCardNumberFromFileName(String filename) throws Exception {
+        String[] splittedFilename = filename.split("\\.");
+
+        if (splittedFilename.length != 2) {
+            throw new Exception("Invalid card filename.");
+        }
+
+        try {
+            return Integer.parseInt(splittedFilename[splittedFilename.length - 2]);
+        }
+        catch (Exception e) {
+            throw new Exception("Invalid card filename.");
+        }
     }
 }

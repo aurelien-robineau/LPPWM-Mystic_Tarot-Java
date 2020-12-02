@@ -9,10 +9,9 @@ public class CardCreator {
     protected CardCreator() {};
 
     /**
-     * Gets new card values from user input and create the new card.
-     * @return the newly created Card.
+     * Asks the user values for a new card and save the card.
      */
-    public Card createCard() {
+    public void createCard() {
         UserInput input = new UserInput();
 
         System.out.println("---- Card Creator ----");
@@ -21,6 +20,23 @@ public class CardCreator {
         String  description = input.getString("Description");
         String  imagePath   = input.getString("Image path");
 
-        return new Card(number, name, description, imagePath);
+        Card newCard = new Card(number, name, description, imagePath);
+        this.save(newCard);
+    }
+
+    /**
+     * Save a card.
+     * Saving includes adding the card to the card manager and saving it as a
+     * file.
+     * @param card the card to save.
+     */
+    private void save(Card card) {
+        CardManager cardManager = CardManager.getInstance();
+        CardSerializer serializer = new CardSerializer(card);
+
+        cardManager.getCards().add(card);
+
+        // serializer.saveCardBinary();
+        serializer.saveCardJSON();
     }
 }

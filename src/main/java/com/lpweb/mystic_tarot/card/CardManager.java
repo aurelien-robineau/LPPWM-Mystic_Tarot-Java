@@ -63,15 +63,15 @@ public class CardManager {
                     String action = input.nextLine();
     
                     if (action.equals("1")) {
-                        this.createCard();
+                        new CardCreator().createCard();
                         break;
                     }
                     else if (action.equals("2")) {
-                        this.editCard();
+                        new CardEditor().editCard();
                         break;
                     }
                     else if (action.equals("3")) {
-                        this.deleteCard();
+                        new CardDeletor().deleteCard();
                         break;
                     }
                     else if (action.equals("4")) {
@@ -196,48 +196,6 @@ public class CardManager {
     //--------------------------------------------------------------------------
     // Private methods
     //--------------------------------------------------------------------------
-
-    /**
-     * Opens a new CardCreator, adds the new card to CardManager cards and saves
-     * the card.
-     */
-    private void createCard() {
-        CardCreator creator = new CardCreator();
-        Card newCard = creator.createCard();
-
-        this.cards.add(newCard);
-
-        CardSerializer serializer = new CardSerializer(newCard);
-        // serializer.saveCardBinary();
-        serializer.saveCardJSON();
-    }
-
-    /**
-     * Opens a new CardEditor, adds the edited card to CardManager cards and
-     * saves the card.
-     */
-    private void editCard() {
-        CardEditor editor = new CardEditor();
-        Card editedCard = editor.editCard();
-
-        if (editedCard != null) {
-            CardSerializer serializer = new CardSerializer(editedCard);
-            // serializer.saveCardBinary();
-            serializer.saveCardJSON();
-        }
-    }
-
-    /**
-     * Opens new a CardDeletor.
-     */
-    private void deleteCard() {
-        CardDeletor deletor = new CardDeletor();
-        Card deletedCard = deletor.deleteCard();
-
-        CardSerializer serializer = new CardSerializer(deletedCard);
-        // serializer.deleteCardBinary();
-        serializer.deleteCardJSON();
-    }
 
     /**
      * Searches a card with a given number and prints it out.

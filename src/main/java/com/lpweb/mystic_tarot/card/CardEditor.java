@@ -12,7 +12,7 @@ public class CardEditor {
      * Asks the number of the card to edit, then the new card values.
      * @return the edited card or null if no card to edit.
      */
-    public Card editCard() {
+    public void editCard() {
         UserInput input = new UserInput();
         CardManager cardManager = CardManager.getInstance();
 
@@ -20,9 +20,11 @@ public class CardEditor {
 
         if (cardManager.getCards().size() == 0) {
             System.out.println("No card to edit.");
-            return null;
+            return;
         }
         
+        cardManager.displayCards();
+
         Integer cardNumber = input.getCardNumber("Card number");
         Card card = cardManager.getCardByNumber(cardNumber);
 
@@ -31,6 +33,20 @@ public class CardEditor {
         card.description = input.getString("New description");
         card.imagePath   = input.getString("New image path");
 
-        return card;
+        this.save(card);
+    }
+
+    /**
+     * Saves the edited card and clean card files directory.
+     * @param oldCard
+     * @param newCard
+     */
+    private void save(Card card) {
+        CardSerializer serializer = new CardSerializer(card);
+
+        // serializer.saveCardBinary();
+        serializer.saveCardJSON();
+
+        CardSerializer.cleanFiles();
     }
 }
