@@ -146,60 +146,38 @@ public class CardManager {
      * Gets a card with a given number.
      * @param  number number of the card to get.
      * @return card mathing the number.
-     * @throws Exception If the given number matches no card.
      */
-    public Card getCardByNumber(Integer number) throws Exception {
+    public Card getCardByNumber(Integer number) {
         CardSearcher searcher = new CardSearcher(this.cards);
-        Card card = searcher.get(number);
-
-        if (card == null) {
-            throw new Exception("Card with number " + number + " cannot be found.");
-        }
-
-        return card;
+        return searcher.get(number);
     }
 
     /**
      * Gets a card with a given name.
      * @param  name name of the card to get.
      * @return card mathing the name.
-     * @throws Exception If the given name matches no card.
      */
-    public Card getCardByName(String name) throws Exception {
+    public Card getCardByName(String name) {
         CardSearcher searcher = new CardSearcher(this.cards);
-        Card card = searcher.get(name);
-
-        if (card.equals(null)) {
-            throw new Exception("Card with name " + name + " cannot be found.");
-        }
-
-        return card;
+        return searcher.get(name);
     }
 
     /**
      * Gets all cards with description containing a given string.
      * @param research string to look for in the descriptions.
      * @return cards mathing the research string
-     * @throws Exception If the given research string matches no card.
      */
-    public ArrayList<Card> getAllByMatchingDescription(String research) throws Exception {
+    public ArrayList<Card> getAllByMatchingDescription(String research) {
         CardSearcher searcher = new CardSearcher(this.cards);
-        ArrayList<Card> cards = searcher.getAllWhereDescriptionContains(research);
-
-        if (cards.size() == 0) {
-            throw new Exception("No card matching given description.");
-        }
-
-        return cards;
+        return searcher.getAllWhereDescriptionContains(research);
     }
 
     /**
      * Removes a card with a given number.
      * @param cardNumber number of the card to get.
      * @return the removed card.
-     * @throws Exception If the given number matches no card.
      */
-    public Card removeCardByNumber(Integer cardNumber) throws Exception {
+    public Card removeCardByNumber(Integer cardNumber) {
         Card cardToRemove = this.getCardByNumber(cardNumber);
         this.cards.remove(cardToRemove);
 

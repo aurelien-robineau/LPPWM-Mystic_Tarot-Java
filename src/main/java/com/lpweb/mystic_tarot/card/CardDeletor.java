@@ -18,22 +18,15 @@ public class CardDeletor {
 
         System.out.println("---- Card Deletor ----");
         
-        // No card
         if (cardManager.getCards().size() == 0) {
             System.out.println("No card to delete.");
             return null;
         }
 
-        // Display all cards
         cardManager.displayCards();
 
-        // Ask card number while invalid
         Integer cardNumber = input.getCardNumber("Card number");
-        try {
-            return cardManager.removeCardByNumber(cardNumber);
-        }
-        catch (Exception e) {
-            return null;
-        }
+        
+        return cardManager.removeCardByNumber(cardNumber);
     }
 }

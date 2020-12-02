@@ -1,8 +1,5 @@
 package com.lpweb.mystic_tarot.card;
 
-import java.util.Scanner;
-
-import com.lpweb.mystic_tarot.MysticTarot;
 import com.lpweb.mystic_tarot.UserInput;
 
 /**
@@ -21,22 +18,13 @@ public class CardEditor {
 
         System.out.println("---- Card Editor ----");
 
-        // No card
         if (cardManager.getCards().size() == 0) {
             System.out.println("No card to edit.");
             return null;
         }
         
-        Card card;
-
-        // Ask card number while invalid
         Integer cardNumber = input.getCardNumber("Card number");
-        try {
-            card = cardManager.removeCardByNumber(cardNumber);
-        }
-        catch (Exception e) {
-            return null;
-        }
+        Card card = cardManager.getCardByNumber(cardNumber);
 
         card.number      = input.getInteger("New number");
         card.name        = input.getString("New name");
