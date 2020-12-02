@@ -1,9 +1,8 @@
 package com.lpweb.mystic_tarot.card;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import com.lpweb.mystic_tarot.MysticTarot;
+import com.lpweb.mystic_tarot.UserInput;
 
 /**
  * The CardSearcher class provides methods to search cards in a list of cards.
@@ -31,18 +30,10 @@ public class CardSearcher {
      * @return the found card or null if no card matches the given number.
      */
     public Card searchByNumber() {
-        System.out.println("---- Card Searcher (Number) ----");
+        UserInput input = new UserInput();
 
-        Scanner input = MysticTarot.getScanner();
-        while (true) {
-            System.out.print("Card number: ");
-            try {
-                Integer cardNumber = Integer.parseInt(input.nextLine());
-                return this.get(cardNumber);
-            } catch (NumberFormatException e) {
-                System.err.println("Number must be an integer.");
-            }
-        }
+        System.out.println("---- Card Searcher (Number) ----");
+        return this.get(input.getInteger("Card number"));
     }
 
     /**
@@ -50,11 +41,10 @@ public class CardSearcher {
      * @return the found card or null if no card matches the given name.
      */
     public Card searchByName() {
+        UserInput input = new UserInput();
+        
         System.out.println("---- Card Searcher (Name) ----");
-        Scanner input = MysticTarot.getScanner();
-
-        System.out.print("Card number: ");
-        return this.get(input.nextLine());
+        return this.get(input.getString("Card name"));
     }
 
     /**
@@ -63,11 +53,12 @@ public class CardSearcher {
      * @return the list cards with description containing the given string.
      */
     public ArrayList<Card> searchByMatchingDescription() {
-        System.out.println("---- Card Searcher (Matching Description) ----");
-        Scanner input = MysticTarot.getScanner();
+        UserInput input = new UserInput();
 
-        System.out.print("Card number: ");
-        return this.getAllWhereDescriptionContains(input.nextLine());
+        System.out.println("---- Card Searcher (Matching Description) ----");
+        return this.getAllWhereDescriptionContains(
+            input.getString("Description contains")
+        );
     }
 
     /**

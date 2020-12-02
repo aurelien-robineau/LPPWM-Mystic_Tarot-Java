@@ -128,6 +128,21 @@ public class CardManager {
     }
 
     /**
+     * Check if a card numbers exists.
+     * @param number the card number to check.
+     * @return {@code true} if a card with this number exists.
+     */
+    public Boolean cardNumberExists(Integer number) {
+        for (Card card : cards) {
+            if (card.number.equals(number)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    /**
      * Gets a card with a given number.
      * @param  number number of the card to get.
      * @return card mathing the number.
