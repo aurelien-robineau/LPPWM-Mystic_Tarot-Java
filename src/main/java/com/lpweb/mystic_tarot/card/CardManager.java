@@ -30,7 +30,8 @@ public class CardManager {
      * Loads saved cards on init.
      */
     private CardManager() {
-        this.cards = CardSerializer.loadSavedCards();
+        // this.cards = CardSerializer.loadBinarySavedCards();
+        this.cards = CardSerializer.loadJSONSavedCards();
     };
 
     /**
@@ -214,7 +215,8 @@ public class CardManager {
         this.cards.add(newCard);
 
         CardSerializer serializer = new CardSerializer(newCard);
-        serializer.save();
+        // serializer.saveCardBinary();
+        serializer.saveCardJSON();
     }
 
     /**
@@ -227,7 +229,8 @@ public class CardManager {
 
         if (editedCard != null) {
             CardSerializer serializer = new CardSerializer(editedCard);
-            serializer.save();
+            // serializer.saveCardBinary();
+            serializer.saveCardJSON();
         }
     }
 
@@ -239,7 +242,8 @@ public class CardManager {
         Card deletedCard = deletor.deleteCard();
 
         CardSerializer serializer = new CardSerializer(deletedCard);
-        serializer.delete();
+        // serializer.deleteCardBinary();
+        serializer.deleteCardJSON();
     }
 
     /**
