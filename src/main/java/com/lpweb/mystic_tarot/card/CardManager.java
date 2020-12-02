@@ -200,19 +200,31 @@ public class CardManager {
     //--------------------------------------------------------------------------
 
     /**
-     * Opens a new CardCreator and add the new card to CardManager cards.
+     * Opens a new CardCreator, adds the new card to CardManager cards and saves
+     * the card.
      */
     private void createCard() {
         CardCreator creator = new CardCreator();
-        this.cards.add(creator.createCard());
+        Card newCard = creator.createCard();
+
+        this.cards.add(newCard);
+
+        CardSerializer serializer = new CardSerializer(newCard);
+        serializer.save();
     }
 
     /**
-     * Opens a new CardEditor and add the new card to CardManager cards.
+     * Opens a new CardEditor, adds the edited card to CardManager cards and
+     * saves the card.
      */
     private void editCard() {
         CardEditor editor = new CardEditor();
-        editor.editCard();
+        Card editedCard = editor.editCard();
+
+        if (editedCard != null) {
+            CardSerializer serializer = new CardSerializer(editedCard);
+            serializer.save();
+        }
     }
 
     /**

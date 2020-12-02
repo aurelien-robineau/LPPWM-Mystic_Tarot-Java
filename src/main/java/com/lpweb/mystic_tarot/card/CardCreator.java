@@ -40,13 +40,6 @@ public class CardCreator {
         System.out.print("Image path: ");
         String imagePath = input.nextLine();
 
-        // Create card
-        Card card = new Card(number, name, description, imagePath);
-
-        // Save card
-        CardSerializer serializer = new CardSerializer(card);
-        serializer.save();
-
-        return card;
+        return new Card(number, name, description, imagePath);
     }
 }

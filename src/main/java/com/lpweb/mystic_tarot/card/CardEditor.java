@@ -12,8 +12,9 @@ public class CardEditor {
 
     /**
      * Asks the number of the card to edit, then the new card values.
+     * @return the edited card or null if no card to edit.
      */
-    public void editCard() {
+    public Card editCard() {
         System.out.println("---- Card Editor ----");
         Scanner input = MysticTarot.getScanner();
         CardManager cardManager = CardManager.getInstance();
@@ -21,7 +22,7 @@ public class CardEditor {
         // No card
         if (cardManager.getCards().size() == 0) {
             System.out.println("No card to edit.");
-            return;
+            return null;
         }
         
         Card card;
@@ -61,8 +62,6 @@ public class CardEditor {
         System.out.print("New image path: ");
         card.imagePath = input.nextLine();
 
-        // Save card
-        CardSerializer serializer = new CardSerializer(card);
-        serializer.save();
+        return card;
     }
 }
