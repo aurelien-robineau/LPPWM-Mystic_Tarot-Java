@@ -203,7 +203,7 @@ public class CardManager {
     private void searchCardByNumber() {
         CardSearcher searcher = new CardSearcher(this.cards);
         Card card = searcher.searchByNumber();
-        System.out.println(!card.equals(null) ? card : "No card found.");
+        System.out.println(card != null ? card : "No card found.");
     }
 
     /**
@@ -212,7 +212,7 @@ public class CardManager {
     private void searchCardByName() {
         CardSearcher searcher = new CardSearcher(this.cards);
         Card card = searcher.searchByName();
-        System.out.println(!card.equals(null) ? card : "No card found.");
+        System.out.println(card != null ? card : "No card found.");
     }
 
     /**
@@ -224,7 +224,7 @@ public class CardManager {
         ArrayList<Card> cards = searcher.searchByMatchingDescription();
 
         if (cards.size() != 0) {
-            for (Card card: searcher.searchByMatchingDescription()) {
+            for (Card card: cards) {
                 System.out.println(card);
             };
         }
