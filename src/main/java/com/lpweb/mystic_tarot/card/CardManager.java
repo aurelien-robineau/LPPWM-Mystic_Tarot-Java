@@ -224,7 +224,7 @@ public class CardManager {
         ArrayList<Card> cards = searcher.searchByMatchingDescription();
 
         if (cards.size() != 0) {
-            for (Card card: searcher.searchByMatchingDescription()) {
+            for (Card card: cards) {
                 System.out.println(card);
             };
         }
