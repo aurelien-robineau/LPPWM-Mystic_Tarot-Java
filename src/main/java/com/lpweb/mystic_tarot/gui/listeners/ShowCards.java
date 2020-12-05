@@ -12,16 +12,36 @@ import com.lpweb.mystic_tarot.card.Card;
 import com.lpweb.mystic_tarot.card.CardManager;
 import com.lpweb.mystic_tarot.gui.components.CardPanel;
 
+/**
+ * Listener for opening searching cards and display them.
+ */
 public class ShowCards implements ActionListener {
+    /**
+     * Where to display cards.
+     */
     private JComponent target;
+
+    /**
+     * Input for the user research.
+     */
     private JTextField searchInput;
+
+    /**
+     * List of CardPanel to display.
+     */
     private ArrayList<CardPanel> cards = new ArrayList<>();
 
+    /**
+     * Create a new listener.
+     * @param target the component where to display cards.
+     * @param searchInput the input for the user research.
+     */
     public ShowCards(JComponent target, JTextField searchInput) {
         this.target      = target;
         this.searchInput = searchInput;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         removeOldCards();
         refreshCards();
@@ -33,6 +53,9 @@ public class ShowCards implements ActionListener {
         render();
     }
 
+    /**
+     * Remove previous cards from the GUI and reset the card panel list.
+     */
     private void removeOldCards() {
         // Remove cards from target
         for (CardPanel card : cards) {
@@ -43,11 +66,17 @@ public class ShowCards implements ActionListener {
         cards = new ArrayList<>();
     }
 
+    /**
+     * Render the new cards.
+     */
     private void render() {
         target.revalidate();
         target.repaint();
     }
 
+    /**
+     * Fill the card panel list wich fresh data get from the user research.
+     */
     private void refreshCards() {
         cards = new ArrayList<>();
 

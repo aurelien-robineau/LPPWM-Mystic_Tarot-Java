@@ -11,29 +11,48 @@ import com.lpweb.mystic_tarot.card.Card;
 import com.lpweb.mystic_tarot.gui.components.Button;
 import com.lpweb.mystic_tarot.gui.components.Input;
 
+/**
+ * Window for creating or editing a card.
+ */
 public class CreateOrEditCard extends JFrame {
     private static final long serialVersionUID = 1L;
 
-    private static final String    NAME              = "New Card | Mystic tarot";
+    /**
+     * Name of the window.
+     */
+    private static final String NAME = "New Card | Mystic tarot";
+
+    /**
+     * Window's default dimensions.
+     */
     private static final Dimension DEFAULT_DIMENSION = new Dimension(350, 450);
 
-    private JPanel panel;
-
+    /**
+     * Create of new window for creating a card.
+     */
     public CreateOrEditCard() {
         super();
         createFrame(null);
     }
 
+    /**
+     * Create of new window for editing a card.
+     * @param card the card to edit.
+     */
     public CreateOrEditCard(Card card) {
         super();
         createFrame(card);
     }
 
+    /**
+     * Generate a form for editing a card.
+     * @param card the card to edit, null for creating a new one.
+     */
     private void createFrame(Card card) {
         setTitle(NAME);
         setSize(DEFAULT_DIMENSION);
 
-        panel = new JPanel();
+        JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         add(panel);
 
