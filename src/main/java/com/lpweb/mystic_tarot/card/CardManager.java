@@ -173,6 +173,16 @@ public class CardManager {
     }
 
     /**
+     * Get all cards with a number, name or description containing a given string.
+     * @param search the string to search in the cards number, name and description.
+     * @return the cards found.
+     */
+    public ArrayList<Card> getByAllMeans(String research) {
+        CardSearcher searcher = new CardSearcher(this.cards);
+        return searcher.getByAllMeans(research);
+    }
+
+    /**
      * Removes a card with a given number.
      * @param cardNumber number of the card to get.
      * @return the removed card.
