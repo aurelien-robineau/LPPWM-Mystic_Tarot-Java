@@ -12,6 +12,7 @@ import com.lpweb.mystic_tarot.MysticTarot;
 import com.lpweb.mystic_tarot.card.CardSerializer;
 import com.lpweb.mystic_tarot.gui.components.Button;
 import com.lpweb.mystic_tarot.gui.components.Input;
+import com.lpweb.mystic_tarot.gui.listeners.ShowCards;
 
 /**
  * MainFrame is the window openned when lauching the application.
@@ -24,7 +25,7 @@ public class MainFrame extends JFrame {
     /**
      * Name of the window.
      */
-    private static final String    NAME              = "Mystic tarot";
+    private static final String NAME = "Mystic tarot";
 
     /**
      * Default window's dimensions.
@@ -60,6 +61,8 @@ public class MainFrame extends JFrame {
 
         panel.add(menuPanel);
         panel.add(cardsScroll);
+
+        searchCardButton.addActionListener(new ShowCards(cardsPanel, searchCardInput));
     }
 
     @Override
