@@ -93,8 +93,8 @@ public class CardSearcher {
 
     /**
      * Get all cards with a description containing a given string.
-     * @param search the string to search in the cards description
-     * @return the cards found
+     * @param search the string to search in the cards description.
+     * @return the cards found.
      */
     public ArrayList<Card> getAllWhereDescriptionContains(String search) {
         ArrayList<Card> results = new ArrayList<>();
@@ -105,5 +105,25 @@ public class CardSearcher {
         }
 
         return results;
+    }
+
+    /**
+     * Get all cards with a number, name or description containing a given string.
+     * @param search the string to search in the cards number, name and description.
+     * @return the cards found.
+     */
+    public ArrayList<Card> getByAllMeans(String search) {
+            ArrayList<Card> results = new ArrayList<>();
+            for (Card card : this.cards) {
+                if (card.number.toString().contains(search)
+                    || card.name.contains(search)
+                    || card.description.contains(search)
+                    && !results.contains(card))
+                {
+                    results.add(card);
+                }
+            }
+
+            return results;
     }
 }
