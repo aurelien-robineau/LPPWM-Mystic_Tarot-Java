@@ -82,7 +82,7 @@ public class ShowCards implements ActionListener {
 
         ArrayList<Card> newCards = searchInput.getText().equals("") ?
             CardManager.getInstance().getCards() :
-            CardManager.getInstance().getAllByMatchingDescription(searchInput.getText());
+            CardManager.getInstance().getByAllMeans(searchInput.getText());
 
         for (Card card : newCards) {
             cards.add(new CardPanel(card));
