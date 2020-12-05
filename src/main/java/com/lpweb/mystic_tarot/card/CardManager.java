@@ -203,6 +203,24 @@ public class CardManager {
         }
     }
 
+    /**
+     * Save a new card.
+     * @param card the card to save.
+     */
+    public void saveNewCard(Card card) {
+        CardCreator saver = new CardCreator();
+        saver.save(card);
+    }
+
+    /**
+     * Save an existing card.
+     * @param card the card to save.
+     */
+    public void saveExistingCard(Card card) {
+        CardEditor saver = new CardEditor();
+        saver.save(card);
+    }
+
     //--------------------------------------------------------------------------
     // Private methods
     //--------------------------------------------------------------------------
