@@ -35,7 +35,7 @@ public class CardDeletor {
      * the card file.
      * @param card the card to delete.
      */
-    private void delete(Card card) {
+    public void delete(Card card) {
         CardManager cardManager = CardManager.getInstance();
         CardSerializer serializer = new CardSerializer(card);
 
