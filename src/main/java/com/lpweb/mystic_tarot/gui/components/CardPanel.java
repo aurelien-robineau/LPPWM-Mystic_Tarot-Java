@@ -7,10 +7,10 @@ import javax.swing.JPanel;
 import com.lpweb.mystic_tarot.card.Card;
 import com.lpweb.mystic_tarot.gui.listeners.OpenEditForm;
 
-public class CardBox extends JPanel {
+public class CardPanel extends JPanel {
     private static final long serialVersionUID = 1L;
 
-    public CardBox(Card card) {
+    public CardPanel(Card card) {
         super();
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
