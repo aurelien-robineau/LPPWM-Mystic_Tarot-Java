@@ -12,6 +12,7 @@ import com.lpweb.mystic_tarot.MysticTarot;
 import com.lpweb.mystic_tarot.card.CardSerializer;
 import com.lpweb.mystic_tarot.gui.components.Button;
 import com.lpweb.mystic_tarot.gui.components.Input;
+import com.lpweb.mystic_tarot.gui.listeners.OpenCreateForm;
 import com.lpweb.mystic_tarot.gui.listeners.ShowCards;
 
 /**
@@ -63,6 +64,7 @@ public class MainFrame extends JFrame {
         panel.add(cardsScroll);
 
         searchCardButton.addActionListener(new ShowCards(cardsPanel, searchCardInput));
+        createCardButton.addActionListener(new OpenCreateForm());
     }
 
     @Override
