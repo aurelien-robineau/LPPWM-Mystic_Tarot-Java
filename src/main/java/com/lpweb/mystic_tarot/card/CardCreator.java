@@ -30,7 +30,7 @@ public class CardCreator {
      * file.
      * @param card the card to save.
      */
-    private void save(Card card) {
+    public void save(Card card) {
         CardManager cardManager = CardManager.getInstance();
         CardSerializer serializer = new CardSerializer(card);
 

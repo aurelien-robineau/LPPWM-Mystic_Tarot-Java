@@ -41,7 +41,7 @@ public class CardEditor {
      * @param oldCard
      * @param newCard
      */
-    private void save(Card card) {
+    public void save(Card card) {
         CardSerializer serializer = new CardSerializer(card);
 
         // serializer.saveCardBinary();
