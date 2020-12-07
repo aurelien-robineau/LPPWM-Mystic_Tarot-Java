@@ -221,6 +221,15 @@ public class CardManager {
         saver.save(card);
     }
 
+    /**
+     * Delete a card.
+     * @param card the card to delete.
+     */
+    public void deleteCard(Card card) {
+        CardDeletor deletor = new CardDeletor();
+        deletor.delete(card);
+    }
+
     //--------------------------------------------------------------------------
     // Private methods
     //--------------------------------------------------------------------------
