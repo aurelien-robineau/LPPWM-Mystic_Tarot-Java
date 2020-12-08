@@ -82,8 +82,10 @@ public class CardSearcher {
      * @return the found card or null if no card matches the given name.
      */
     public Card get(String name) {
+        name = name.toLowerCase();
+
         for (Card card : this.cards) {
-            if (card.name.equals(name)) {
+            if (card.name.toLowerCase().equals(name)) {
                 return card;
             }
         }
@@ -97,9 +99,11 @@ public class CardSearcher {
      * @return the cards found.
      */
     public ArrayList<Card> getAllWhereDescriptionContains(String search) {
+        search = search.toLowerCase();
+
         ArrayList<Card> results = new ArrayList<>();
         for (Card card : this.cards) {
-            if (card.description.contains(search)) {
+            if (card.description.toLowerCase().contains(search)) {
                 results.add(card);
             }
         }
@@ -113,17 +117,19 @@ public class CardSearcher {
      * @return the cards found.
      */
     public ArrayList<Card> getByAllMeans(String search) {
-            ArrayList<Card> results = new ArrayList<>();
-            for (Card card : this.cards) {
-                if (card.number.toString().contains(search)
-                    || card.name.contains(search)
-                    || card.description.contains(search)
-                    && !results.contains(card))
-                {
-                    results.add(card);
-                }
-            }
+        search = search.toLowerCase();
 
-            return results;
+        ArrayList<Card> results = new ArrayList<>();
+        for (Card card : this.cards) {
+            if (card.number.toString().toLowerCase().contains(search)
+                || card.name.toLowerCase().contains(search)
+                || card.description.toLowerCase().contains(search)
+                && !results.contains(card))
+            {
+                results.add(card);
+            }
+        }
+
+        return results;
     }
 }

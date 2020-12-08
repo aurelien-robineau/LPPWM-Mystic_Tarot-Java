@@ -28,22 +28,34 @@ public class CardEditor {
         Integer cardNumber = input.getCardNumber("Card number");
         Card card = cardManager.getCardByNumber(cardNumber);
 
-        Integer number      = input.getInteger("New number");
+        Integer number      = input.getNewCardNumber("New number", card.number);
         String  name        = input.getString("New name");
         String  description = input.getString("New description");
         String  imagePath   = input.getString("New image path");
 
         Card newCard = new Card(number, name, description, imagePath);
 
-        this.save(card, newCard);
+        try {
+            this.save(card, newCard);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     /**
      * Saves the edited card and clean card files directory.
      * @param card the card to save.
      * @param newCard the temporary card with the new data.
+     * @throws Exception if the card number already exists.
      */
-    public void save(Card card, Card newCard) {
+    public void save(Card card, Card newCard) throws Exception {
+        Boolean numberExists  = CardManager.getInstance().cardNumberExists(card.number);
+        Boolean numberChanged = !card.number.equals(newCard.number);
+
+        if (numberChanged && numberExists) {
+            throw new Exception("A card with this number already exists.");
+        }
+
         card.refreshFrom(newCard);
 
         CardSerializer serializer = new CardSerializer(card);
