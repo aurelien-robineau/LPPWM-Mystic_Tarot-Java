@@ -21,7 +21,12 @@ public class CardCreator {
         String  imagePath   = input.getString("Image path");
 
         Card newCard = new Card(number, name, description, imagePath);
-        this.save(newCard);
+
+        try {
+            this.save(newCard);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     /**
@@ -29,8 +34,15 @@ public class CardCreator {
      * Saving includes adding the card to the card manager and saving it as a
      * file.
      * @param card the card to save.
+     * @throws Exception if the card number already exists.
      */
-    public void save(Card card) {
+    public void save(Card card) throws Exception {
+        Boolean numberExists  = CardManager.getInstance().cardNumberExists(card.number);
+
+        if (numberExists) {
+            throw new Exception("A card with this number already exists.");
+        }
+
         CardManager cardManager = CardManager.getInstance();
         CardSerializer serializer = new CardSerializer(card);
 
