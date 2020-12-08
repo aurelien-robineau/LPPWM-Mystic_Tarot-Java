@@ -77,6 +77,17 @@ public class Card implements Serializable
         return this.description;
     }
 
+    /**
+     * Copies another card data into the card.
+     * @param card
+     */
+    public void refreshFrom(Card card) {
+        number      = card.number;
+        name        = card.name;
+        description = card.description;
+        imagePath   = card.imagePath;
+    }
+
     //--------------------------------------------------------------------------
     // Public methods
     //--------------------------------------------------------------------------
