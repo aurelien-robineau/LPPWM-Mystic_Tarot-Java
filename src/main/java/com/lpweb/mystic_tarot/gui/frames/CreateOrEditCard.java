@@ -113,7 +113,8 @@ public class CreateOrEditCard extends JFrame {
                 nameInput,
                 descriptionInput,
                 imageInput,
-                this
+                this,
+                card
             ));
         }
     }

@@ -1,20 +1,44 @@
 package com.lpweb.mystic_tarot.gui.listeners;
 
 import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-import java.awt.event.ActionEvent;
-
 import com.lpweb.mystic_tarot.card.Card;
 import com.lpweb.mystic_tarot.card.CardManager;
+import com.lpweb.mystic_tarot.gui.GuiManager;
 import com.lpweb.mystic_tarot.gui.components.Input;
 
+/**
+ * Listener for saving a new card.
+ */
 public class SaveNewCard implements ActionListener {
-    private Input  numberInput;
-    private Input  nameInput;
-    private Input  descriptionInput;
-    private Input  imageInput;
+    /**
+     * Input to read for the card number.
+     */
+    private Input numberInput;
+
+    /**
+     * Input to read for the card name.
+     */
+    private Input nameInput;
+
+    /**
+     * Input to read for the card description.
+     */
+    private Input descriptionInput;
+
+    /**
+     * Input to read for the card imager path.
+     */
+    private Input imageInput;
+
+    /**
+     * Frame from wich the event has been trigerred.
+     * This frame will be closed after saving the card.
+     */
     private JFrame parentFrame;
 
     public SaveNewCard(
@@ -33,6 +57,7 @@ public class SaveNewCard implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        // Create the new card.
         Card card = new Card(
             Integer.parseInt(numberInput.getText()),
             nameInput.getText(),
@@ -40,8 +65,13 @@ public class SaveNewCard implements ActionListener {
             imageInput.getText()
         );
 
+        // Save the card.
         CardManager.getInstance().saveNewCard(card);
 
+        // Add the card to the GUI.
+        GuiManager.getInstance().addCard(card, BorderLayout.CENTER);
+
+        // Close form.
         parentFrame.dispose();
     }
 }
