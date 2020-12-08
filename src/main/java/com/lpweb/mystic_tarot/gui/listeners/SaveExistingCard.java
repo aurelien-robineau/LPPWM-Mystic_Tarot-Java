@@ -74,7 +74,7 @@ public class SaveExistingCard implements ActionListener {
         );
 
         // Save new card.
-        CardManager.getInstance().saveExistingCard(card);
+        CardManager.getInstance().saveExistingCard(oldCard, card);
 
         // Refresh car panel.
         GuiManager.getInstance().refreshCardPanel(oldCard, card);
