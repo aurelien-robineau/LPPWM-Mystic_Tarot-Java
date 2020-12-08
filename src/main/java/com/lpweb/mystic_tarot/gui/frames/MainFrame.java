@@ -68,6 +68,9 @@ public class MainFrame extends JFrame {
 
         searchCardButton.addActionListener(new ShowCards(searchCardInput));
         createCardButton.addActionListener(new OpenCreateForm());
+
+        // Show cards all cards by clicking the search card button
+        searchCardButton.doClick();
     }
 
     @Override
