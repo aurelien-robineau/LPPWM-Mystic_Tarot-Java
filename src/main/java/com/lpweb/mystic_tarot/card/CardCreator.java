@@ -15,7 +15,7 @@ public class CardCreator {
         UserInput input = new UserInput();
 
         System.out.println("---- Card Creator ----");
-        Integer number      = input.getInteger("Number");
+        Integer number      = input.getNewCardNumber("Number");
         String  name        = input.getString("Name");
         String  description = input.getString("Description");
         String  imagePath   = input.getString("Image path");
