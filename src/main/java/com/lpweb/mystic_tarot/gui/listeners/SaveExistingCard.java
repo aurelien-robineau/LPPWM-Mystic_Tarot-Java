@@ -64,7 +64,7 @@ public class SaveExistingCard implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent event) {
         // Create new card from inputs.
         Card card = new Card(
             Integer.parseInt(numberInput.getText()),
@@ -73,13 +73,12 @@ public class SaveExistingCard implements ActionListener {
             imageInput.getText()
         );
 
-        // Save new card.
-        CardManager.getInstance().saveExistingCard(oldCard, card);
-
-        // Refresh car panel.
-        GuiManager.getInstance().refreshCardPanel(oldCard, card);
-
-        // Close form.
-        parentFrame.dispose();
+        try {
+            CardManager.getInstance().saveExistingCard(oldCard, card);
+            GuiManager.getInstance().refreshCardPanel(oldCard, card);
+            parentFrame.dispose();
+        } catch (Exception e) {
+            numberInput.invalidate();
+        }
     }
 }

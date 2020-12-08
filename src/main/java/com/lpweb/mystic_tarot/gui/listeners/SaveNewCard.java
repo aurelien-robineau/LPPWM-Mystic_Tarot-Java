@@ -56,7 +56,7 @@ public class SaveNewCard implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent event) {
         // Create the new card.
         Card card = new Card(
             Integer.parseInt(numberInput.getText()),
@@ -65,13 +65,12 @@ public class SaveNewCard implements ActionListener {
             imageInput.getText()
         );
 
-        // Save the card.
-        CardManager.getInstance().saveNewCard(card);
-
-        // Add the card to the GUI.
-        GuiManager.getInstance().addCard(card, BorderLayout.CENTER);
-
-        // Close form.
-        parentFrame.dispose();
+        try {
+            CardManager.getInstance().saveNewCard(card);
+            GuiManager.getInstance().addCard(card, BorderLayout.CENTER);
+            parentFrame.dispose();
+        } catch (Exception e) {
+            numberInput.invalidate();
+        }
     }
 }

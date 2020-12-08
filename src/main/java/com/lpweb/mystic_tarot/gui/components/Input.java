@@ -1,8 +1,11 @@
 package com.lpweb.mystic_tarot.gui.components;
 
 import java.awt.Dimension;
+import java.awt.Color;
 
+import javax.swing.BorderFactory;
 import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 
 /**
  * Custom JTextField.
@@ -28,5 +31,13 @@ public class Input extends JTextField {
     public Input(String text) {
         super(text);
         setPreferredSize(new Dimension(300, 40));
+    }
+
+    public void setError() {
+        setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.RED, Color.RED));
+    }
+
+    public void removeError() {
+        setBorder(null);
     }
 }
