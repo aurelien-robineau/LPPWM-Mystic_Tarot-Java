@@ -216,9 +216,9 @@ public class CardManager {
      * Save an existing card.
      * @param card the card to save.
      */
-    public void saveExistingCard(Card card) {
+    public void saveExistingCard(Card oldCard, Card newCard) {
         CardEditor saver = new CardEditor();
-        saver.save(card);
+        saver.save(oldCard, newCard);
     }
 
     /**

@@ -28,20 +28,24 @@ public class CardEditor {
         Integer cardNumber = input.getCardNumber("Card number");
         Card card = cardManager.getCardByNumber(cardNumber);
 
-        card.number      = input.getInteger("New number");
-        card.name        = input.getString("New name");
-        card.description = input.getString("New description");
-        card.imagePath   = input.getString("New image path");
+        Integer number      = input.getInteger("New number");
+        String  name        = input.getString("New name");
+        String  description = input.getString("New description");
+        String  imagePath   = input.getString("New image path");
 
-        this.save(card);
+        Card newCard = new Card(number, name, description, imagePath);
+
+        this.save(card, newCard);
     }
 
     /**
      * Saves the edited card and clean card files directory.
-     * @param oldCard
-     * @param newCard
+     * @param card the card to save.
+     * @param newCard the temporary card with the new data.
      */
-    public void save(Card card) {
+    public void save(Card card, Card newCard) {
+        card.refreshFrom(newCard);
+
         CardSerializer serializer = new CardSerializer(card);
 
         // serializer.saveCardBinary();
