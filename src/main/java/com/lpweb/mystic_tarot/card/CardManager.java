@@ -206,8 +206,9 @@ public class CardManager {
     /**
      * Save a new card.
      * @param card the card to save.
+     * @throws Exception if the card number already exists. 
      */
-    public void saveNewCard(Card card) {
+    public void saveNewCard(Card card) throws Exception {
         CardCreator saver = new CardCreator();
         saver.save(card);
     }
@@ -215,8 +216,9 @@ public class CardManager {
     /**
      * Save an existing card.
      * @param card the card to save.
+     * @throws Exception if the card number already exists. 
      */
-    public void saveExistingCard(Card oldCard, Card newCard) {
+    public void saveExistingCard(Card oldCard, Card newCard) throws Exception {
         CardEditor saver = new CardEditor();
         saver.save(oldCard, newCard);
     }

@@ -61,4 +61,36 @@ public class UserInput {
             System.err.println("\"" + label + "\" must be a existing card number.");
         }
     }
+    
+    /**
+     * Asks the user to enter a value and return it as a Integer by using the
+     * {@code UserInput.getInteger()} method.
+     * Method will keep asking the user to enter a value while this is an
+     * already existing card number.
+     * @param label the name of the input
+     * @param exclude a valid card number even if it already exits
+     * @return the value of the input
+     */
+    public Integer getNewCardNumber(String label, Integer exclude) {
+        while (true) {
+            Integer cardNumber = this.getInteger(label);
+            Boolean numberExists = CardManager.getInstance().cardNumberExists(cardNumber);
+            if (cardNumber.equals(exclude) || !numberExists) {
+                return cardNumber;
+            }
+
+            System.err.println("\"" + label + "\" is already a card number.");
+        }
+    }
+
+    /**
+     * This method allows to use {@code UserInput.getNewCardNumber()} without
+     * excluding a number.
+     * @param label the name of the input
+     * @return the value of the input
+     * @see UserInput#getNewCardNumber(String, Integer) getNewCardNumber
+     */
+    public Integer getNewCardNumber(String label) {
+        return getNewCardNumber(label, null);
+    }
 }
