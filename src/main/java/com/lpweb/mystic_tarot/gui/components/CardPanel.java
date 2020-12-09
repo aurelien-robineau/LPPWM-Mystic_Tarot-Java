@@ -67,15 +67,19 @@ public class CardPanel extends JPanel {
 
         JPanel titlePanel       = new JPanel();
         JPanel descriptionPanel = new JPanel();
+        JPanel imagePanel       = new JPanel();
 
         add(titlePanel);
         add(descriptionPanel);
+        add(imagePanel);
 
         JLabel titleLabel       = new JLabel("Carte n°" + card.getNumber() + ": " + card.getName());
         JLabel descriptionLabel = new JLabel(card.getDescription());
+        Image  image            = new Image(card.getImage());
 
         titlePanel.add(titleLabel);
         descriptionPanel.add(descriptionLabel);
+        imagePanel.add(image);
 
         JPanel controlsPanel = new JPanel();
         
