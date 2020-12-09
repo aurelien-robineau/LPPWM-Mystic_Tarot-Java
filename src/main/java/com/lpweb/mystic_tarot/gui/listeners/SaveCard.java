@@ -1,6 +1,7 @@
 package com.lpweb.mystic_tarot.gui.listeners;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
 
@@ -10,7 +11,8 @@ import com.lpweb.mystic_tarot.card.Card;
 import com.lpweb.mystic_tarot.card.CardManager;
 import com.lpweb.mystic_tarot.gui.GuiManager;
 import com.lpweb.mystic_tarot.gui.components.ImageFilePicker;
-import com.lpweb.mystic_tarot.gui.components.Input;
+import com.lpweb.mystic_tarot.gui.components.Validable;
+import com.lpweb.mystic_tarot.gui.components.TextInput;
 
 /**
  * Listener for saving an existing card.
@@ -19,17 +21,17 @@ public class SaveCard implements ActionListener {
     /**
      * Input to read for the new card number.
      */
-    private Input numberInput;
+    private TextInput numberInput;
 
     /**
      * Input to read for the new card name.
      */
-    private Input nameInput;
+    private TextInput nameInput;
 
     /**
      * Input to read for the new card description.
      */
-    private Input descriptionInput;
+    private TextInput descriptionInput;
 
     /**
      * File picker for the new image.
@@ -57,9 +59,9 @@ public class SaveCard implements ActionListener {
      * @param oldCard the card to replace by the new one. Set to {@code null} for creating a new one.
      */
     public SaveCard(
-        Input            numberInput,
-        Input            nameInput,
-        Input            descriptionInput,
+        TextInput        numberInput,
+        TextInput        nameInput,
+        TextInput        descriptionInput,
         ImageFilePicker  imageInput,
         JFrame           parentFrame,
         Card             oldCard
@@ -84,9 +86,9 @@ public class SaveCard implements ActionListener {
      * @param parentFrame the frame from wich the event has been trigerred.
      */
     public SaveCard(
-        Input            numberInput,
-        Input            nameInput,
-        Input            descriptionInput,
+        TextInput        numberInput,
+        TextInput        nameInput,
+        TextInput        descriptionInput,
         ImageFilePicker  imageInput,
         JFrame           parentFrame
     ) {
@@ -95,6 +97,16 @@ public class SaveCard implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent event) {
+        ArrayList<Validable> invalidInputs = getInvalidInputs();
+
+        // If there are invalid inputs, display errors and cancel saving.
+        if (invalidInputs.size() != 0) {
+            for (Validable input : invalidInputs) {
+                input.setError();
+            }
+            return;
+        }
+
         // Create new card from inputs.
         Card card = new Card(
             Integer.parseInt(numberInput.getText()),
@@ -119,5 +131,24 @@ public class SaveCard implements ActionListener {
         } catch (Exception e) {
             numberInput.setError();
         }
+    }
+
+    /**
+     * Gets a list of the invalid card inputs.
+     * @return the list of the invalid card inputs.
+     */
+    private ArrayList<Validable> getInvalidInputs() {
+        ArrayList<Validable> invalidInputs = new ArrayList<>();
+
+        if (numberInput.getText().equals(""))
+            invalidInputs.add(numberInput);
+        if (nameInput.getText().equals(""))
+            invalidInputs.add(nameInput);
+        if (descriptionInput.getText().equals(""))
+            invalidInputs.add(descriptionInput);
+        if (imageInput.getSelectedFile() == null)
+            invalidInputs.add(imageInput);
+
+        return invalidInputs;
     }
 }
