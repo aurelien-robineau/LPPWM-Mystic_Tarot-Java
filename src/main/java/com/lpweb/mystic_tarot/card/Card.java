@@ -36,7 +36,7 @@ public class Card implements Serializable
     /**
      * The image of the card.
      */
-    protected File image;
+    protected transient File image;
 
     //--------------------------------------------------------------------------
     // Constructors
@@ -77,6 +77,7 @@ public class Card implements Serializable
         this.name        = card.name;
         this.description = card.description;
         this.imagePath   = card.imagePath;
+        this.image       = card.image;
     }
 
     //--------------------------------------------------------------------------
@@ -103,6 +104,10 @@ public class Card implements Serializable
         return this.image;
     }
 
+    //--------------------------------------------------------------------------
+    // Public methods
+    //--------------------------------------------------------------------------
+
     /**
      * Copies another card data into the card.
      * @param card
@@ -112,6 +117,21 @@ public class Card implements Serializable
         name        = card.name;
         description = card.description;
         imagePath   = card.imagePath;
+        image       = card.image;
+    }
+
+    //--------------------------------------------------------------------------
+    // Protected methods
+    //--------------------------------------------------------------------------
+
+    /**
+     * Change the card image from a filename.
+     * @param filename the filename of the new image.
+     */
+    protected void setImageFromFilename(String filename) {
+        File file = new File(filename);
+        image = file;
+        imagePath = file.getAbsolutePath();
     }
 
     //--------------------------------------------------------------------------
