@@ -170,6 +170,7 @@ public class CardSerializer {
                 if (getFileExtension(file.getName()).equals("json")) {
                     try (Reader reader = new FileReader(file)) {
                         Card card = gson.fromJson(reader, Card.class);
+                        card.setImageFromFilename(card.imagePath);
                         loadedCards.add(card);   
                     } catch(Exception e) {
                         System.err.println("Could not load card.");
