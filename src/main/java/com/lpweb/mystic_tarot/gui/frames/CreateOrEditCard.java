@@ -66,12 +66,14 @@ public class CreateOrEditCard extends JFrame {
         TextInput       numberInput      = new TextInput(card == null ? "" : card.getNumber().toString());
         TextInput       nameInput        = new TextInput(card == null ? "" : card.getName());
         TextInput       descriptionInput = new TextInput(card == null ? "" : card.getDescription());
-        ImageFilePicker imageInput       = new ImageFilePicker(".");
+        ImageFilePicker imageInput       = new ImageFilePicker(null);
+
+        if (card != null) imageInput.setSelectedFile(card.getImage());
 
         JLabel numberLabel      = new JLabel("Number");
         JLabel nameLabel        = new JLabel("Name");
         JLabel descriptionLabel = new JLabel("Description");
-        JLabel imageLabel       = new JLabel("Image path");
+        JLabel imageLabel       = new JLabel("Image");
 
         numberPanel.add(numberLabel);
         numberPanel.add(numberInput);

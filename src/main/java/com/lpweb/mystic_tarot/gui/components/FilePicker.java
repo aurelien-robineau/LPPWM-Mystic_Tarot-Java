@@ -41,7 +41,7 @@ public class FilePicker extends JPanel implements Validable {
      */
     public FilePicker(String currentDirectory) {
         super();
-
+        
         fileChooser = new JFileChooser(currentDirectory);
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -65,6 +65,17 @@ public class FilePicker extends JPanel implements Validable {
     public File getSelectedFile() {
         return selectedFile;
     }
+
+    /**
+     * Change the file picker selected file.
+     * @param file the new selected file.
+     */
+    public void setSelectedFile(File file) {
+        selectedFile = file;
+        selectedFileNameLabel.setText(file.getName());
+        fileChooser.setCurrentDirectory(file);
+    }
+
 
     @Override
     public void setError() {
@@ -96,8 +107,7 @@ class ChooseFile implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        JFileChooser fileChooser            = filePicker.getFileChooser();
-        JLabel       selectedImagePathLabel = filePicker.getSelectedFileNameLabel();
+        JFileChooser fileChooser = filePicker.getFileChooser();
 
         File file;
         int response;
@@ -109,8 +119,7 @@ class ChooseFile implements ActionListener {
         if (response == JFileChooser.APPROVE_OPTION) {
             file = fileChooser.getSelectedFile();
             if (file.isFile()) {
-                filePicker.selectedFile = file;
-                selectedImagePathLabel.setText(file.getName());
+                filePicker.setSelectedFile(file);
             }
         }
     }
