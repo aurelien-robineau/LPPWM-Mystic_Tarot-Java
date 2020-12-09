@@ -11,8 +11,7 @@ import com.lpweb.mystic_tarot.card.Card;
 import com.lpweb.mystic_tarot.gui.components.Button;
 import com.lpweb.mystic_tarot.gui.components.ImageFilePicker;
 import com.lpweb.mystic_tarot.gui.components.Input;
-import com.lpweb.mystic_tarot.gui.listeners.SaveNewCard;
-import com.lpweb.mystic_tarot.gui.listeners.SaveExistingCard;
+import com.lpweb.mystic_tarot.gui.listeners.SaveCard;
 
 /**
  * Window for creating or editing a card.
@@ -100,7 +99,7 @@ public class CreateOrEditCard extends JFrame {
         panel.add(controlsPanel);
 
         if (card == null) {
-            createCardButton.addActionListener(new SaveNewCard(
+            createCardButton.addActionListener(new SaveCard(
                 numberInput,
                 nameInput,
                 descriptionInput,
@@ -109,7 +108,7 @@ public class CreateOrEditCard extends JFrame {
             ));
         }
         else {
-            createCardButton.addActionListener(new SaveExistingCard(
+            createCardButton.addActionListener(new SaveCard(
                 numberInput,
                 nameInput,
                 descriptionInput,
