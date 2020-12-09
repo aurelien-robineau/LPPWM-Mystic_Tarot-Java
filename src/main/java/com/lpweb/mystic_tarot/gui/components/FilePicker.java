@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
  * name of the choosen file.
  * Any file is accepted by the FileChooser class.
  */
-public class FilePicker extends JPanel {
+public class FilePicker extends JPanel implements Validable {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -66,10 +66,12 @@ public class FilePicker extends JPanel {
         return selectedFile;
     }
 
+    @Override
     public void setError() {
         selectedFileNameLabel.setForeground(Color.RED);
     }
 
+    @Override
     public void removeError() {
         selectedFileNameLabel.setForeground(null);
     }
