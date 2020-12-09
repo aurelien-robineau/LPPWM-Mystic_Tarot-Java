@@ -1,5 +1,6 @@
 package com.lpweb.mystic_tarot.card;
 
+import java.io.File;
 import java.io.Serializable;
 
 /**
@@ -33,17 +34,38 @@ public class Card implements Serializable
     protected String  imagePath;
 
     /**
-     * Public constructor.
+     * The image of the card.
+     */
+    protected File image;
+
+    //--------------------------------------------------------------------------
+    // Constructors
+    //--------------------------------------------------------------------------
+
+    /**
+     * Constructs a new Card.
+     * @param number the unique number of the card
+     * @param name the unique name of the card
+     * @param description the description of the card
+     * @param image the image of the card
+     */
+    public Card(Integer number, String name, String description, File image) {
+        this.number      = number;
+        this.name        = name;
+        this.description = description;
+        this.imagePath   = image.getAbsolutePath();
+        this.image       = image;
+    }
+
+    /**
+     * Constructs a new Card.
      * @param number the unique number of the card
      * @param name the unique name of the card
      * @param description the description of the card
      * @param imagePath the path to the image of the card
      */
     public Card(Integer number, String name, String description, String imagePath) {
-        this.number      = number;
-        this.name        = name;
-        this.description = description;
-        this.imagePath   = imagePath;
+        this(number, name, description, new File(imagePath));
     }
 
     /**
@@ -75,6 +97,10 @@ public class Card implements Serializable
 
     public String getImagePath() {
         return this.description;
+    }
+
+    public File getImage() {
+        return this.image;
     }
 
     /**
