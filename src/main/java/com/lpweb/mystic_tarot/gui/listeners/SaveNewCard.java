@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import com.lpweb.mystic_tarot.card.Card;
 import com.lpweb.mystic_tarot.card.CardManager;
 import com.lpweb.mystic_tarot.gui.GuiManager;
+import com.lpweb.mystic_tarot.gui.components.ImageFilePicker;
 import com.lpweb.mystic_tarot.gui.components.Input;
 
 /**
@@ -31,9 +32,9 @@ public class SaveNewCard implements ActionListener {
     private Input descriptionInput;
 
     /**
-     * Input to read for the card imager path.
+     * File picker for the new image.
      */
-    private Input imageInput;
+    private ImageFilePicker imageInput;
 
     /**
      * Frame from wich the event has been trigerred.
@@ -42,11 +43,11 @@ public class SaveNewCard implements ActionListener {
     private JFrame parentFrame;
 
     public SaveNewCard(
-        Input  numberInput,
-        Input  nameInput,
-        Input  descriptionInput,
-        Input  imageInput,
-        JFrame parentFrame
+        Input            numberInput,
+        Input            nameInput,
+        Input            descriptionInput,
+        ImageFilePicker  imageInput,
+        JFrame           parentFrame
     ) {
         this.numberInput      = numberInput;
         this.nameInput        = nameInput;
@@ -62,7 +63,7 @@ public class SaveNewCard implements ActionListener {
             Integer.parseInt(numberInput.getText()),
             nameInput.getText(),
             descriptionInput.getText(),
-            imageInput.getText()
+            imageInput.getSelectedFile()
         );
 
         try {
@@ -70,7 +71,7 @@ public class SaveNewCard implements ActionListener {
             GuiManager.getInstance().addCard(card, BorderLayout.CENTER);
             parentFrame.dispose();
         } catch (Exception e) {
-            numberInput.invalidate();
+            numberInput.setError();
         }
     }
 }
