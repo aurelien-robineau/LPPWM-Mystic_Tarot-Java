@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.lpweb.mystic_tarot.card.Card;
+import com.lpweb.mystic_tarot.gui.RomanNumber;
 import com.lpweb.mystic_tarot.gui.listeners.DeleteCard;
 import com.lpweb.mystic_tarot.gui.listeners.OpenEditForm;
 
@@ -73,7 +74,7 @@ public class CardPanel extends JPanel {
         add(descriptionPanel);
         add(imagePanel);
 
-        JLabel titleLabel       = new JLabel("Carte n°" + card.getNumber() + ": " + card.getName());
+        JLabel titleLabel       = new JLabel("Carte " + RomanNumber.toRoman(card.getNumber()) + ": " + card.getName());
         JLabel descriptionLabel = new JLabel(card.getDescription());
         Image  image            = new Image(card.getImage());
 
