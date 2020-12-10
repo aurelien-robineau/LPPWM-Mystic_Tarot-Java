@@ -1,9 +1,9 @@
 package com.lpweb.mystic_tarot.gui.listeners;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JTextField;
 
@@ -14,7 +14,7 @@ import com.lpweb.mystic_tarot.gui.GuiManager;
 /**
  * Listener for opening searching cards and display them.
  */
-public class ShowCards implements ActionListener {
+public class ShowCards implements KeyListener {
     /**
      * Input for the user research.
      */
@@ -29,9 +29,19 @@ public class ShowCards implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void keyTyped(KeyEvent e) {
         removeOldCards();
         refreshCards();
+    }
+    
+    @Override
+    public void keyPressed(KeyEvent e) {
+        return;
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        return;
     }
     
     //--------------------------------------------------------------------------

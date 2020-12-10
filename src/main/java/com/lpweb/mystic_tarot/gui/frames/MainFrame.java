@@ -2,6 +2,7 @@ package com.lpweb.mystic_tarot.gui.frames;
 
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -53,11 +54,9 @@ public class MainFrame extends JFrame {
 
         Button    createCardButton = new Button("Create card");
         TextInput searchCardInput  = new TextInput();
-        Button    searchCardButton = new Button("Search");
 
         menuPanel.add(createCardButton);
         menuPanel.add(searchCardInput);
-        menuPanel.add(searchCardButton);
 
         add(panel);
 
@@ -66,11 +65,12 @@ public class MainFrame extends JFrame {
 
         GuiManager.getInstance().setCardContainer(cardsPanel);
 
-        searchCardButton.addActionListener(new ShowCards(searchCardInput));
+        KeyListener searchCardListener = new ShowCards(searchCardInput);
+        searchCardInput.addKeyListener(searchCardListener);
         createCardButton.addActionListener(new OpenCreateForm());
 
-        // Show cards all cards by clicking the search card button
-        searchCardButton.doClick();
+        // Show all cards on init
+        searchCardListener.keyTyped(null);
     }
 
     @Override
