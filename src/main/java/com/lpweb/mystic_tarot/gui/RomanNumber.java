@@ -29,6 +29,7 @@ public class RomanNumber {
         map.put(5, "V");
         map.put(4, "IV");
         map.put(1, "I");
+        map.put(0, "0");
     }
 
     /**
