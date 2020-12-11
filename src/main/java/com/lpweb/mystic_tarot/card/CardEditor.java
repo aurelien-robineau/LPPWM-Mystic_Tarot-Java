@@ -61,10 +61,12 @@ public class CardEditor {
 
         CardSerializer serializer = new CardSerializer(card);
 
-        // Copy the image to the project
-        FileCopier copier = new FileCopier(card.image);
-        card.imagePath = Card.cardImageDirectory + card.image.getName();
-        card.image     = copier.copyTo(card.imagePath);
+        // Copy the image to the project if it changed
+        if (!card.imagePath.equals(newCard.imagePath)) {
+            FileCopier copier = new FileCopier(card.image);
+            card.imagePath = Card.cardImageDirectory + card.image.getName();
+            card.image     = copier.copyTo(card.imagePath);
+        }
 
         // serializer.saveCardBinary();
         serializer.saveCardJSON();
