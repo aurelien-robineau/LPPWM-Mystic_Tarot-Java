@@ -1,5 +1,6 @@
 package com.lpweb.mystic_tarot.card;
 
+import com.lpweb.mystic_tarot.FileCopier;
 import com.lpweb.mystic_tarot.UserInput;
 
 /**
@@ -47,6 +48,11 @@ public class CardCreator {
         CardSerializer serializer = new CardSerializer(card);
 
         cardManager.getCards().add(card);
+
+        // Copy the image to the project
+        FileCopier copier = new FileCopier(card.image);
+        card.imagePath = Card.cardImageDirectory + card.image.getName();
+        card.image     = copier.copyTo(card.imagePath);
 
         // serializer.saveCardBinary();
         serializer.saveCardJSON();
