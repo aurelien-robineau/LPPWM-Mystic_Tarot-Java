@@ -19,6 +19,8 @@ import com.lpweb.mystic_tarot.gui.listeners.OpenEditForm;
 public class CardPanel extends JPanel {
     private static final long serialVersionUID = 1L;
 
+    public static final int imageWidth = 200;
+
     /**
      * Card represented on the panel.
      */
@@ -76,7 +78,7 @@ public class CardPanel extends JPanel {
 
         JLabel titleLabel       = new JLabel("Carte " + RomanNumber.toRoman(card.getNumber()) + ": " + card.getName());
         JLabel descriptionLabel = new JLabel(card.getDescription());
-        Image  image            = new Image(card.getImage());
+        ScaledImage  image            = new ScaledImage(card.getImage(), imageWidth);
 
         titlePanel.add(titleLabel);
         descriptionPanel.add(descriptionLabel);
