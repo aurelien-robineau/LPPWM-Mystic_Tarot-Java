@@ -33,7 +33,7 @@ public class MainFrame extends JFrame {
     /**
      * Default window's dimensions.
      */
-    private static final Dimension DEFAULT_DIMENSION = new Dimension(960, 520);
+    private static final Dimension DEFAULT_DIMENSION = new Dimension(960, 600);
 
     public MainFrame() {
         super();
@@ -49,7 +49,6 @@ public class MainFrame extends JFrame {
         JPanel      cardsPanel  = new JPanel();
         JScrollPane cardsScroll = new JScrollPane(cardsPanel);
 
-        cardsPanel.setLayout(new BoxLayout(cardsPanel, BoxLayout.Y_AXIS));
         cardsScroll.setViewportView(cardsPanel);
 
         Button    createCardButton = new Button("Create card");
