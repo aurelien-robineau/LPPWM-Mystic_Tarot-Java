@@ -43,5 +43,7 @@ public class CardDeletor {
 
         // serializer.saveCardBinary();
         serializer.deleteCardJSON();
+
+        card.image.delete();
     }
 }

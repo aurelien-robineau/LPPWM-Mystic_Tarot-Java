@@ -20,11 +20,6 @@ import com.google.gson.GsonBuilder;
  */
 public class CardSerializer {
     /**
-     * Directory the cards are saved in.
-     */
-    private static final String cardSavePath = "./data/cards/";
-
-    /**
      * Card managed by the CardSerializer.
      */
     private Card card;
@@ -45,8 +40,8 @@ public class CardSerializer {
      */
     protected CardSerializer(Card card) {
         this.card               = card;
-        this.cardFilenameBinary = cardSavePath + this.card.number + ".serial";
-        this.cardFilenameJSON   = cardSavePath + this.card.number + ".json";
+        this.cardFilenameBinary = Card.cardSavePath + this.card.number + ".serial";
+        this.cardFilenameJSON   = Card.cardSavePath + this.card.number + ".json";
     }
 
     //--------------------------------------------------------------------------
@@ -120,7 +115,7 @@ public class CardSerializer {
      * @return the loaded cards
      */
     public static ArrayList<Card> loadBinarySavedCards() {
-        File directory = new File(cardSavePath);
+        File directory = new File(Card.cardSavePath);
         File[] files = directory.listFiles();
         ArrayList<Card> loadedCards = new ArrayList<>();
 
@@ -157,7 +152,7 @@ public class CardSerializer {
      * @return the loaded cards
      */
     public static ArrayList<Card> loadJSONSavedCards() {
-        File directory = new File(cardSavePath);
+        File directory = new File(Card.cardSavePath);
         File[] files = directory.listFiles();
         ArrayList<Card> loadedCards = new ArrayList<>();
         Gson gson = new Gson();
@@ -190,7 +185,7 @@ public class CardSerializer {
      * file name syntax.
      */
     public static void cleanFiles() {
-        File directory = new File(cardSavePath);
+        File directory = new File(Card.cardSavePath);
         File[] files = directory.listFiles();
 
         // The provided directory really is a directory

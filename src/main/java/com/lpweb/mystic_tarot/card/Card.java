@@ -12,6 +12,16 @@ public class Card implements Serializable
     private static final long serialVersionUID = 1L;
 
     /**
+     * Directory the cards are saved in.
+     */
+    public static final String cardSavePath = "./data/cards/serialized/";
+
+    /**
+     * Directory the cards images are saved in.
+     */
+    public static final String cardImageDirectory = "./data/cards/images/";
+
+    /**
      * The number of the card.
      * The number must be unique.
      */
@@ -66,6 +76,7 @@ public class Card implements Serializable
      */
     public Card(Integer number, String name, String description, String imagePath) {
         this(number, name, description, new File(imagePath));
+        this.imagePath = imagePath;
     }
 
     /**
