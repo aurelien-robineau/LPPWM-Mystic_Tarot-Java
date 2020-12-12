@@ -48,20 +48,6 @@ public class CardSearcher {
     }
 
     /**
-     * Displays a console interface asking the user a string to look for in
-     * cards description.
-     * @return the list cards with description containing the given string.
-     */
-    public ArrayList<Card> searchByMatchingDescription() {
-        UserInput input = new UserInput();
-
-        System.out.println("---- Card Searcher (Matching Description) ----");
-        return this.getAllWhereDescriptionContains(
-            input.getString("Description contains")
-        );
-    }
-
-    /**
      * Get a card with a given number.
      * @param number the number of the card to get.
      * @return the found card or null if no card matches the given number.
@@ -94,25 +80,7 @@ public class CardSearcher {
     }
 
     /**
-     * Get all cards with a description containing a given string.
-     * @param search the string to search in the cards description.
-     * @return the cards found.
-     */
-    public ArrayList<Card> getAllWhereDescriptionContains(String search) {
-        search = search.toLowerCase();
-
-        ArrayList<Card> results = new ArrayList<>();
-        for (Card card : this.cards) {
-            if (card.description.toLowerCase().contains(search)) {
-                results.add(card);
-            }
-        }
-
-        return results;
-    }
-
-    /**
-     * Get all cards with a number, name or description containing a given string.
+     * Get all cards with a number or name containing a given string.
      * @param search the string to search in the cards number, name and description.
      * @return the cards found.
      */
@@ -123,7 +91,6 @@ public class CardSearcher {
         for (Card card : this.cards) {
             if (card.number.toString().toLowerCase().contains(search)
                 || card.name.toLowerCase().contains(search)
-                || card.description.toLowerCase().contains(search)
                 && !results.contains(card))
             {
                 results.add(card);

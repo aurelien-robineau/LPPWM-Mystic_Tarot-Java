@@ -51,9 +51,8 @@ public class CardManager {
             System.out.println("* 3: Delete card");
             System.out.println("* 4: Search card by number");
             System.out.println("* 5: Search card by name");
-            System.out.println("* 6: Search card matching description");
-            System.out.println("* 7: Display cards");
-            System.out.println("* 8: Leave");
+            System.out.println("* 6: Display cards");
+            System.out.println("* 7: Leave");
     
             // Ask action while invalid choice
             while (true) {
@@ -83,14 +82,10 @@ public class CardManager {
                         break;
                     }
                     else if (action.equals("6")) {
-                        this.searchCardMatchingDescription();
-                        break;
-                    }
-                    else if (action.equals("7")) {
                         this.displayCards();
                         break;
                     }
-                    else if (action.equals("8")) {
+                    else if (action.equals("7")) {
                         this.close();
                         break;
                     }
@@ -160,16 +155,6 @@ public class CardManager {
     public Card getCardByName(String name) {
         CardSearcher searcher = new CardSearcher(this.cards);
         return searcher.get(name);
-    }
-
-    /**
-     * Gets all cards with description containing a given string.
-     * @param research string to look for in the descriptions.
-     * @return cards mathing the research string
-     */
-    public ArrayList<Card> getAllByMatchingDescription(String research) {
-        CardSearcher searcher = new CardSearcher(this.cards);
-        return searcher.getAllWhereDescriptionContains(research);
     }
 
     /**
@@ -252,23 +237,5 @@ public class CardManager {
         CardSearcher searcher = new CardSearcher(this.cards);
         Card card = searcher.searchByName();
         System.out.println(card != null ? card : "No card found.");
-    }
-
-    /**
-     * Searches cards with description containing a given string and prints them
-     * out.
-     */
-    private void searchCardMatchingDescription() {
-        CardSearcher searcher = new CardSearcher(this.cards);
-        ArrayList<Card> cards = searcher.searchByMatchingDescription();
-
-        if (cards.size() != 0) {
-            for (Card card: cards) {
-                System.out.println(card);
-            };
-        }
-        else {
-            System.out.println("No card found.");
-        }
     }
 }
