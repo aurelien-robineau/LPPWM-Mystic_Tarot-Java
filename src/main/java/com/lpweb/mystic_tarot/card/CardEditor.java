@@ -29,12 +29,11 @@ public class CardEditor {
         Integer cardNumber = input.getCardNumber("Card number");
         Card card = cardManager.getCardByNumber(cardNumber);
 
-        Integer number      = input.getNewCardNumber("New number", card.number);
-        String  name        = input.getString("New name");
-        String  description = input.getString("New description");
-        String  imagePath   = input.getString("New image path");
+        Integer number    = input.getNewCardNumber("New number", card.number);
+        String  name      = input.getString("New name");
+        String  imagePath = input.getString("New image path");
 
-        Card newCard = new Card(number, name, description, imagePath);
+        Card newCard = new Card(number, name, imagePath);
 
         try {
             this.save(card, newCard);
@@ -57,15 +56,17 @@ public class CardEditor {
             throw new Exception("A card with this number already exists.");
         }
 
+        // Copy the image to the project if it changed
+        if (!card.imagePath.equals(newCard.imagePath)) {
+            FileCopier copier = new FileCopier(newCard.image);
+            newCard.imagePath = Card.cardImageDirectory + newCard.image.getName();
+            newCard.image     = copier.copyTo(newCard.imagePath);
+            card.image.delete();
+        }
+
         card.refreshFrom(newCard);
 
         CardSerializer serializer = new CardSerializer(card);
-
-        // Copy the image to the project
-        FileCopier copier = new FileCopier(card.image);
-        card.imagePath = Card.cardImageDirectory + card.image.getName();
-        card.image     = copier.copyTo(card.imagePath);
-
         // serializer.saveCardBinary();
         serializer.saveCardJSON();
 
