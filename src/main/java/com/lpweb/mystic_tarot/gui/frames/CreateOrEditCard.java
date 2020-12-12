@@ -58,22 +58,19 @@ public class CreateOrEditCard extends JFrame {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         add(panel);
 
-        JPanel numberPanel      = new JPanel();
-        JPanel namePanel        = new JPanel();
-        JPanel descriptionPanel = new JPanel();
-        JPanel imagePanel       = new JPanel();
+        JPanel numberPanel = new JPanel();
+        JPanel namePanel   = new JPanel();
+        JPanel imagePanel  = new JPanel();
 
-        TextInput       numberInput      = new TextInput(card == null ? "" : card.getNumber().toString());
-        TextInput       nameInput        = new TextInput(card == null ? "" : card.getName());
-        TextInput       descriptionInput = new TextInput(card == null ? "" : card.getDescription());
-        ImageFilePicker imageInput       = new ImageFilePicker(null);
+        TextInput       numberInput = new TextInput(card == null ? "" : card.getNumber().toString());
+        TextInput       nameInput   = new TextInput(card == null ? "" : card.getName());
+        ImageFilePicker imageInput  = new ImageFilePicker(null);
 
         if (card != null) imageInput.setSelectedFile(card.getImage());
 
-        JLabel numberLabel      = new JLabel("Number");
-        JLabel nameLabel        = new JLabel("Name");
-        JLabel descriptionLabel = new JLabel("Description");
-        JLabel imageLabel       = new JLabel("Image");
+        JLabel numberLabel = new JLabel("Number");
+        JLabel nameLabel   = new JLabel("Name");
+        JLabel imageLabel  = new JLabel("Image");
 
         numberPanel.add(numberLabel);
         numberPanel.add(numberInput);
@@ -81,15 +78,11 @@ public class CreateOrEditCard extends JFrame {
         namePanel.add(nameLabel);
         namePanel.add(nameInput);
 
-        descriptionPanel.add(descriptionLabel);
-        descriptionPanel.add(descriptionInput);
-
         imagePanel.add(imageLabel);
         imagePanel.add(imageInput);
 
         panel.add(numberPanel);
         panel.add(namePanel);
-        panel.add(descriptionPanel);
         panel.add(imagePanel);
 
         JPanel controlsPanel = new JPanel();
@@ -104,7 +97,6 @@ public class CreateOrEditCard extends JFrame {
             createCardButton.addActionListener(new SaveCard(
                 numberInput,
                 nameInput,
-                descriptionInput,
                 imageInput,
                 this
             ));
@@ -113,7 +105,6 @@ public class CreateOrEditCard extends JFrame {
             createCardButton.addActionListener(new SaveCard(
                 numberInput,
                 nameInput,
-                descriptionInput,
                 imageInput,
                 this,
                 card

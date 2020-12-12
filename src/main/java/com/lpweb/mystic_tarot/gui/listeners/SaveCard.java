@@ -29,11 +29,6 @@ public class SaveCard implements ActionListener {
     private TextInput nameInput;
 
     /**
-     * Input to read for the new card description.
-     */
-    private TextInput descriptionInput;
-
-    /**
      * File picker for the new image.
      */
     private ImageFilePicker imageInput;
@@ -53,7 +48,6 @@ public class SaveCard implements ActionListener {
      * Save a card and add it the the GUI.
      * @param numberInput the input to read for the new card number.
      * @param nameInput the input to read for the new card name.
-     * @param descriptionInput the input to read for the new card description.
      * @param imageInput the file picker for the new image.
      * @param parentFrame the frame from wich the event has been trigerred.
      * @param oldCard the card to replace by the new one. Set to {@code null} for creating a new one.
@@ -61,16 +55,14 @@ public class SaveCard implements ActionListener {
     public SaveCard(
         TextInput        numberInput,
         TextInput        nameInput,
-        TextInput        descriptionInput,
         ImageFilePicker  imageInput,
         JFrame           parentFrame,
         Card             oldCard
     ) {
-        this.numberInput      = numberInput;
-        this.nameInput        = nameInput;
-        this.descriptionInput = descriptionInput;
-        this.imageInput       = imageInput;
-        this.parentFrame      = parentFrame;
+        this.numberInput = numberInput;
+        this.nameInput   = nameInput;
+        this.imageInput  = imageInput;
+        this.parentFrame = parentFrame;
 
         this.oldCard = oldCard;
     }
@@ -81,18 +73,16 @@ public class SaveCard implements ActionListener {
      * {@code oldCard} to be {@code null}.
      * @param numberInput the input to read for the new card number.
      * @param nameInput the input to read for the new card name.
-     * @param descriptionInput the input to read for the new card description.
      * @param imageInput the file picker for the new image.
      * @param parentFrame the frame from wich the event has been trigerred.
      */
     public SaveCard(
-        TextInput        numberInput,
-        TextInput        nameInput,
-        TextInput        descriptionInput,
-        ImageFilePicker  imageInput,
-        JFrame           parentFrame
+        TextInput       numberInput,
+        TextInput       nameInput,
+        ImageFilePicker imageInput,
+        JFrame          parentFrame
     ) {
-        this(numberInput, nameInput, descriptionInput, imageInput, parentFrame, null);
+        this(numberInput, nameInput, imageInput, parentFrame, null);
     }
 
     @Override
@@ -111,7 +101,6 @@ public class SaveCard implements ActionListener {
         Card card = new Card(
             Integer.parseInt(numberInput.getText()),
             nameInput.getText(),
-            descriptionInput.getText(),
             imageInput.getSelectedFile()
         );
 
@@ -144,8 +133,6 @@ public class SaveCard implements ActionListener {
             invalidInputs.add(numberInput);
         if (nameInput.getText().equals(""))
             invalidInputs.add(nameInput);
-        if (descriptionInput.getText().equals(""))
-            invalidInputs.add(descriptionInput);
         if (imageInput.getSelectedFile() == null)
             invalidInputs.add(imageInput);
 

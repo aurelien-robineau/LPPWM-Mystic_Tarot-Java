@@ -76,12 +76,10 @@ public class CardPanel extends JPanel {
         add(descriptionPanel);
         add(imagePanel);
 
-        JLabel       titleLabel       = new JLabel(RomanNumber.toRoman(card.getNumber()) + " - " + card.getName());
-        JLabel       descriptionLabel = new JLabel(card.getDescription());
-        ScaledImage  image            = new ScaledImage(card.getImage(), imageWidth);
+        JLabel       titleLabel = new JLabel(RomanNumber.toRoman(card.getNumber()) + " - " + card.getName());
+        ScaledImage  image      = new ScaledImage(card.getImage(), imageWidth);
 
         titlePanel.add(titleLabel);
-        descriptionPanel.add(descriptionLabel);
         imagePanel.add(image);
 
         JPanel controlsPanel = new JPanel();
