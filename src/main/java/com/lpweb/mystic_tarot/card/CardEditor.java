@@ -56,17 +56,17 @@ public class CardEditor {
             throw new Exception("A card with this number already exists.");
         }
 
+        String oldImagePath = new String(card.imagePath);
         card.refreshFrom(newCard);
 
-        CardSerializer serializer = new CardSerializer(card);
-
         // Copy the image to the project if it changed
-        if (!card.imagePath.equals(newCard.imagePath)) {
+        if (!oldImagePath.equals(newCard.imagePath)) {
             FileCopier copier = new FileCopier(card.image);
             card.imagePath = Card.cardImageDirectory + card.image.getName();
             card.image     = copier.copyTo(card.imagePath);
         }
 
+        CardSerializer serializer = new CardSerializer(card);
         // serializer.saveCardBinary();
         serializer.saveCardJSON();
 
