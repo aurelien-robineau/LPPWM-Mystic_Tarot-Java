@@ -16,12 +16,11 @@ public class CardCreator {
         UserInput input = new UserInput();
 
         System.out.println("---- Card Creator ----");
-        Integer number      = input.getNewCardNumber("Number");
-        String  name        = input.getString("Name");
-        String  description = input.getString("Description");
-        String  imagePath   = input.getString("Image path");
+        Integer number    = input.getNewCardNumber("Number");
+        String  name      = input.getString("Name");
+        String  imagePath = input.getString("Image path");
 
-        Card newCard = new Card(number, name, description, imagePath);
+        Card newCard = new Card(number, name, imagePath);
 
         try {
             this.save(newCard);

@@ -29,12 +29,11 @@ public class CardEditor {
         Integer cardNumber = input.getCardNumber("Card number");
         Card card = cardManager.getCardByNumber(cardNumber);
 
-        Integer number      = input.getNewCardNumber("New number", card.number);
-        String  name        = input.getString("New name");
-        String  description = input.getString("New description");
-        String  imagePath   = input.getString("New image path");
+        Integer number    = input.getNewCardNumber("New number", card.number);
+        String  name      = input.getString("New name");
+        String  imagePath = input.getString("New image path");
 
-        Card newCard = new Card(number, name, description, imagePath);
+        Card newCard = new Card(number, name, imagePath);
 
         try {
             this.save(card, newCard);
