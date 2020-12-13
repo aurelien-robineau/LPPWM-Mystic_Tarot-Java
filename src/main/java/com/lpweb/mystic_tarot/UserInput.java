@@ -53,7 +53,7 @@ public class UserInput {
      */
     public Integer getCardNumber(String label) {
         while (true) {
-            Integer cardNumber = this.getInteger(label);
+            Integer cardNumber = getInteger(label);
             if (CardManager.getInstance().cardNumberExists(cardNumber)) {
                 return cardNumber;
             }
@@ -73,7 +73,7 @@ public class UserInput {
      */
     public Integer getNewCardNumber(String label, Integer exclude) {
         while (true) {
-            Integer cardNumber = this.getInteger(label);
+            Integer cardNumber = getInteger(label);
             Boolean numberExists = CardManager.getInstance().cardNumberExists(cardNumber);
             if (cardNumber.equals(exclude) || !numberExists) {
                 return cardNumber;
