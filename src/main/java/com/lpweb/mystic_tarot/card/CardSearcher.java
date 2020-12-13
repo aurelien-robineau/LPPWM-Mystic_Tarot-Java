@@ -33,7 +33,7 @@ public class CardSearcher {
         UserInput input = new UserInput();
 
         System.out.println("---- Card Searcher (Number) ----");
-        return this.get(input.getInteger("Card number"));
+        return get(input.getInteger("Card number"));
     }
 
     /**
@@ -44,7 +44,7 @@ public class CardSearcher {
         UserInput input = new UserInput();
         
         System.out.println("---- Card Searcher (Name) ----");
-        return this.get(input.getString("Card name"));
+        return get(input.getString("Card name"));
     }
 
     /**
@@ -53,7 +53,7 @@ public class CardSearcher {
      * @return the found card or null if no card matches the given number.
      */
     public Card get(Integer number) {
-        for (Card card : this.cards) {
+        for (Card card : cards) {
             if (card.number.equals(number)) {
                 return card;
             }
@@ -70,7 +70,7 @@ public class CardSearcher {
     public Card get(String name) {
         name = name.toLowerCase();
 
-        for (Card card : this.cards) {
+        for (Card card : cards) {
             if (card.name.toLowerCase().equals(name)) {
                 return card;
             }
@@ -88,7 +88,7 @@ public class CardSearcher {
         search = search.toLowerCase();
 
         ArrayList<Card> results = new ArrayList<>();
-        for (Card card : this.cards) {
+        for (Card card : cards) {
             if (card.number.toString().toLowerCase().contains(search)
                 || card.name.toLowerCase().contains(search)
                 && !results.contains(card))

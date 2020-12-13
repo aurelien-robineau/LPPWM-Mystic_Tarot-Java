@@ -29,7 +29,6 @@ public class Card implements Serializable
 
     /**
      * The name of the card.
-     * The name must be unique.
      */
     protected String  name;
 
@@ -40,6 +39,7 @@ public class Card implements Serializable
 
     /**
      * The image of the card.
+     * Not serialized.
      */
     protected transient File image;
 
@@ -50,22 +50,20 @@ public class Card implements Serializable
     /**
      * Constructs a new Card.
      * @param number the unique number of the card
-     * @param name the unique name of the card
-     * @param description the description of the card
+     * @param name the name of the card
      * @param image the image of the card
      */
     public Card(Integer number, String name, File image) {
-        this.number      = number;
-        this.name        = name;
-        this.imagePath   = image.getAbsolutePath();
-        this.image       = image;
+        this.number    = number;
+        this.name      = name;
+        this.imagePath = image.getAbsolutePath();
+        this.image     = image;
     }
 
     /**
      * Constructs a new Card.
      * @param number the unique number of the card
-     * @param name the unique name of the card
-     * @param description the description of the card
+     * @param name the name of the card
      * @param imagePath the path to the image of the card
      */
     public Card(Integer number, String name, String imagePath) {
@@ -78,30 +76,46 @@ public class Card implements Serializable
      * @param card the card copied to the new card.
      */
     public Card(Card card) {
-        this.number      = card.number;
-        this.name        = card.name;
-        this.imagePath   = card.imagePath;
-        this.image       = card.image;
+        this.number    = card.number;
+        this.name      = card.name;
+        this.imagePath = card.imagePath;
+        this.image     = card.image;
     }
 
     //--------------------------------------------------------------------------
     // Getters
     //--------------------------------------------------------------------------
 
+    /**
+     * Card number getter.
+     * @return the card number.
+     */
     public Integer getNumber() {
-        return this.number;
+        return number;
     };
 
+    /**
+     * Card name getter.
+     * @return the card name.
+     */
     public String getName() {
-        return this.name;
+        return name;
     }
 
+    /**
+     * Card image path getter.
+     * @return the card image path.
+     */
     public String getImagePath() {
-        return this.imagePath;
+        return imagePath;
     }
 
+    /**
+     * Card image getter.
+     * @return the card image.
+     */
     public File getImage() {
-        return this.image;
+        return image;
     }
 
     //--------------------------------------------------------------------------
@@ -113,10 +127,10 @@ public class Card implements Serializable
      * @param card
      */
     public void refreshFrom(Card card) {
-        number      = card.number;
-        name        = card.name;
-        imagePath   = card.imagePath;
-        image       = card.image;
+        number    = card.number;
+        name      = card.name;
+        imagePath = card.imagePath;
+        image     = card.image;
     }
 
     //--------------------------------------------------------------------------
@@ -139,7 +153,6 @@ public class Card implements Serializable
 
     @Override
     public String toString() {
-        return
-         this.getClass().getSimpleName() + " " + this.number + " - " + this.name;
+        return getClass().getSimpleName() + " " + number + " - " + name;
     }
 }
