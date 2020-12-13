@@ -54,6 +54,7 @@ public class CardCreator {
         card.imagePath = Card.cardImageDirectory + card.image.getName();
         card.image     = copier.copyTo(card.imagePath);
 
+        // Both json and binary serialization available
         // serializer.saveCardBinary();
         serializer.saveCardJSON();
     }

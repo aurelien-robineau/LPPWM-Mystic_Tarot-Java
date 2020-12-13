@@ -68,6 +68,7 @@ public class CardEditor {
         CardManager.getInstance().sortCards();
 
         CardSerializer serializer = new CardSerializer(card);
+        // Both json and binary serialization available
         // serializer.saveCardBinary();
         serializer.saveCardJSON();
 
