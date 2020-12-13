@@ -47,6 +47,7 @@ public class CardCreator {
         CardSerializer serializer = new CardSerializer(card);
 
         cardManager.getCards().add(card);
+        cardManager.sortCards();
 
         // Copy the image to the project
         FileCopier copier = new FileCopier(card.image);

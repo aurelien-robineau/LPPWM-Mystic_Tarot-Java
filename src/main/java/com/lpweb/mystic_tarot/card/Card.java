@@ -7,7 +7,7 @@ import java.io.Serializable;
  * Card of the mystic tarot.
  * Cards are used to predict the futur.
  */
-public class Card implements Serializable
+public class Card implements Serializable, Comparable<Card>
 {
     private static final long serialVersionUID = 1L;
 
@@ -119,6 +119,11 @@ public class Card implements Serializable
         image       = card.image;
     }
 
+    @Override
+    public int compareTo(Card card) {
+        return number - card.number;
+    }
+    
     //--------------------------------------------------------------------------
     // Protected methods
     //--------------------------------------------------------------------------

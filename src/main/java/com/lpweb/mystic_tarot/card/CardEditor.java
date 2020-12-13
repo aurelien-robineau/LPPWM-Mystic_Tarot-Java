@@ -65,6 +65,7 @@ public class CardEditor {
         }
 
         card.refreshFrom(newCard);
+        CardManager.getInstance().sortCards();
 
         CardSerializer serializer = new CardSerializer(card);
         // serializer.saveCardBinary();
