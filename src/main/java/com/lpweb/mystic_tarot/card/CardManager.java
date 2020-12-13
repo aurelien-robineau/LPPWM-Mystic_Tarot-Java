@@ -1,6 +1,7 @@
 package com.lpweb.mystic_tarot.card;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 import com.lpweb.mystic_tarot.MysticTarot;
@@ -31,6 +32,7 @@ public class CardManager {
      * Loads saved cards on init.
      */
     private CardManager() {
+        // Both json and binary serialization available
         // cards = CardSerializer.loadBinarySavedCards();
         cards = CardSerializer.loadJSONSavedCards();
     };
@@ -216,6 +218,13 @@ public class CardManager {
     public void deleteCard(Card card) {
         CardDeletor deletor = new CardDeletor();
         deletor.delete(card);
+    }
+
+    /**
+     * Sorts the cards.
+     */
+    public void sortCards() {
+        Collections.sort(cards);
     }
 
     //--------------------------------------------------------------------------

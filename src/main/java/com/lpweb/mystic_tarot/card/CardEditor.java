@@ -67,6 +67,7 @@ public class CardEditor {
 
         // Update card with new values
         card.refreshFrom(newCard);
+        CardManager.getInstance().sortCards();
 
         CardSerializer serializer = new CardSerializer(card);
         // Both json and binary serialization available
