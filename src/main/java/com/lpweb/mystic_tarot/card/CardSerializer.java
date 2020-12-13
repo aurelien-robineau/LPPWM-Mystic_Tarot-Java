@@ -54,7 +54,7 @@ public class CardSerializer {
      */
     public void saveCardBinary() {
         try {
-            FileOutputStream fos = new FileOutputStream(this.cardFilenameBinary);
+            FileOutputStream   fos = new FileOutputStream(cardFilenameBinary);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
             try {
@@ -76,7 +76,7 @@ public class CardSerializer {
      * Deletes the serialization binary file of the card.
      */
     public void deleteCardBinary() {
-        File cardFile = new File(this.cardFilenameBinary);
+        File cardFile = new File(cardFilenameBinary);
         if (!cardFile.delete()) {
             System.err.println("Binary card file could not be deleted.");
         }
@@ -89,8 +89,8 @@ public class CardSerializer {
     public void saveCardJSON() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        try (FileWriter writer = new FileWriter(this.cardFilenameJSON)) {
-            gson.toJson(this.card, writer);
+        try (FileWriter writer = new FileWriter(cardFilenameJSON)) {
+            gson.toJson(card, writer);
         } catch (Exception e) {
             System.err.println("Card could not be saved as JSON.");
         }
@@ -100,7 +100,7 @@ public class CardSerializer {
      * Deletes the serialization JSON file of the card.
      */
     public void deleteCardJSON() {
-        File cardFile = new File(this.cardFilenameJSON);
+        File cardFile = new File(cardFilenameJSON);
         if (!cardFile.delete()) {
             System.err.println("JSON card file could not be deleted.");
         }
@@ -126,7 +126,7 @@ public class CardSerializer {
                 // Try to load file if it is a card serialization binary file
                 if (getFileExtension(file.toString()).equals("serial")) {
                     try {
-                        FileInputStream fis = new FileInputStream(file);
+                        FileInputStream fis   = new FileInputStream(file);
                         ObjectInputStream ois = new ObjectInputStream(fis);
                         try {
                             loadedCards.add((Card) ois.readObject());

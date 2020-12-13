@@ -7,7 +7,8 @@ import java.util.Scanner;
 import com.lpweb.mystic_tarot.MysticTarot;
 
 /**
- * Console interface to manage Cards.
+ * The CardManager class is a singleton for managing cards. All actions on cards
+ * must go through the CardManager and not directly by other classes.
  */
 public class CardManager {
     /**
@@ -27,13 +28,13 @@ public class CardManager {
     private Boolean isOpen = false;
 
     /**
-     * Private constructor.
+     * Singleton constructor.
      * Loads saved cards on init.
      */
     private CardManager() {
         // Both json and binary serialization available
-        // this.cards = CardSerializer.loadBinarySavedCards();
-        this.cards = CardSerializer.loadJSONSavedCards();
+        // cards = CardSerializer.loadBinarySavedCards();
+        cards = CardSerializer.loadJSONSavedCards();
     };
 
     /**
@@ -41,12 +42,12 @@ public class CardManager {
      * Asks the user what action he wants to do.
      */
     public void open() {
-        this.isOpen = true;
+        isOpen = true;
 
         System.out.println("---- Card Manager ----");
         Scanner input = MysticTarot.getScanner();
 
-        while (this.isOpen) {
+        while (isOpen) {
             // Print all available actions
             System.out.println("* 1: Create new card");
             System.out.println("* 2: Edit card");
@@ -76,19 +77,19 @@ public class CardManager {
                         break;
                     }
                     else if (action.equals("4")) {
-                        this.searchCardByNumber();
+                        searchCardByNumber();
                         break;
                     }
                     else if (action.equals("5")) {
-                        this.searchCardByName();
+                        searchCardByName();
                         break;
                     }
                     else if (action.equals("6")) {
-                        this.displayCards();
+                        displayCards();
                         break;
                     }
                     else if (action.equals("7")) {
-                        this.close();
+                        close();
                         break;
                     }
                     else {
@@ -110,7 +111,7 @@ public class CardManager {
     }
 
     public ArrayList<Card> getCards() {
-        return this.cards;
+        return cards;
     }
 
     //--------------------------------------------------------------------------
@@ -121,7 +122,7 @@ public class CardManager {
      * Closes the manager.
      */
     public void close() {
-        this.isOpen = false;
+        isOpen = false;
     }
 
     /**
@@ -145,7 +146,7 @@ public class CardManager {
      * @return card mathing the number.
      */
     public Card getCardByNumber(Integer number) {
-        CardSearcher searcher = new CardSearcher(this.cards);
+        CardSearcher searcher = new CardSearcher(cards);
         return searcher.get(number);
     }
 
@@ -155,7 +156,7 @@ public class CardManager {
      * @return card mathing the name.
      */
     public Card getCardByName(String name) {
-        CardSearcher searcher = new CardSearcher(this.cards);
+        CardSearcher searcher = new CardSearcher(cards);
         return searcher.get(name);
     }
 
@@ -165,7 +166,7 @@ public class CardManager {
      * @return the cards found.
      */
     public ArrayList<Card> getByAllMeans(String research) {
-        CardSearcher searcher = new CardSearcher(this.cards);
+        CardSearcher searcher = new CardSearcher(cards);
         return searcher.getByAllMeans(research);
     }
 
@@ -175,8 +176,8 @@ public class CardManager {
      * @return the removed card.
      */
     public Card removeCardByNumber(Integer cardNumber) {
-        Card cardToRemove = this.getCardByNumber(cardNumber);
-        this.cards.remove(cardToRemove);
+        Card cardToRemove = getCardByNumber(cardNumber);
+        cards.remove(cardToRemove);
 
         return cardToRemove;
     }
@@ -185,7 +186,7 @@ public class CardManager {
      * Prints out all the manager cards.
      */
     public void displayCards() {
-        for (Card card: this.cards) {
+        for (Card card: cards) {
             System.out.println(card);
         }
     }
@@ -234,7 +235,7 @@ public class CardManager {
      * Searches a card with a given number and prints it out.
      */
     private void searchCardByNumber() {
-        CardSearcher searcher = new CardSearcher(this.cards);
+        CardSearcher searcher = new CardSearcher(cards);
         Card card = searcher.searchByNumber();
         System.out.println(card != null ? card : "No card found.");
     }
@@ -243,7 +244,7 @@ public class CardManager {
      * Searches a card with a given name and prints it out.
      */
     private void searchCardByName() {
-        CardSearcher searcher = new CardSearcher(this.cards);
+        CardSearcher searcher = new CardSearcher(cards);
         Card card = searcher.searchByName();
         System.out.println(card != null ? card : "No card found.");
     }

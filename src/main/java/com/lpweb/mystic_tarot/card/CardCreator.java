@@ -4,7 +4,8 @@ import com.lpweb.mystic_tarot.FileCopier;
 import com.lpweb.mystic_tarot.UserInput;
 
 /**
- * The CardCreator class provides a console interface to create a new card.
+ * The CardCreator class provides methods to save a new card.
+ * It also provides a console interface.
  */
 public class CardCreator {
     protected CardCreator() {};
@@ -23,7 +24,7 @@ public class CardCreator {
         Card newCard = new Card(number, name, imagePath);
 
         try {
-            this.save(newCard);
+            save(newCard);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

@@ -2,6 +2,7 @@ package com.lpweb.mystic_tarot;
 
 import java.util.Scanner;
 
+import com.lpweb.mystic_tarot.card.CardManager;
 import com.lpweb.mystic_tarot.gui.frames.MainFrame;
 
 /**
@@ -22,10 +23,17 @@ public class MysticTarot
      */
     public static void main( String[] args )
     {
+        // To use the console instead of the GUI, use the CardManager open method.
+        // CardManager.getInstance().open();
+
         MainFrame gui = new MainFrame();
         gui.setVisible(true);
     }
 
+    /**
+     * Scanner getter.
+     * @return the application scanner.
+     */
     public static Scanner getScanner() {
         return scanner;
     }

@@ -4,7 +4,8 @@ import com.lpweb.mystic_tarot.FileCopier;
 import com.lpweb.mystic_tarot.UserInput;
 
 /**
- * The CardEditor class provides a console interface to edit an existing card.
+ * The CardEditor class provides methods for saving existing cards.
+ * It alose provides a console interface.
  */
 public class CardEditor {
     protected CardEditor() {};
@@ -27,7 +28,7 @@ public class CardEditor {
         cardManager.displayCards();
 
         Integer cardNumber = input.getCardNumber("Card number");
-        Card card = cardManager.getCardByNumber(cardNumber);
+        Card    card       = cardManager.getCardByNumber(cardNumber);
 
         Integer number    = input.getNewCardNumber("New number", card.number);
         String  name      = input.getString("New name");
@@ -36,7 +37,7 @@ public class CardEditor {
         Card newCard = new Card(number, name, imagePath);
 
         try {
-            this.save(card, newCard);
+            save(card, newCard);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -58,12 +59,13 @@ public class CardEditor {
 
         // Copy the image to the project if it changed
         if (!card.imagePath.equals(newCard.imagePath)) {
+            card.image.delete();
             FileCopier copier = new FileCopier(newCard.image);
             newCard.imagePath = Card.cardImageDirectory + newCard.image.getName();
             newCard.image     = copier.copyTo(newCard.imagePath);
-            card.image.delete();
         }
 
+        // Update card with new values
         card.refreshFrom(newCard);
         CardManager.getInstance().sortCards();
 

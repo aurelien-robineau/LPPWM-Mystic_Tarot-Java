@@ -3,7 +3,8 @@ package com.lpweb.mystic_tarot.card;
 import com.lpweb.mystic_tarot.UserInput;
 
 /**
- * The CardDeletor class provides a console interface to delete a card.
+ * The CardDeletor provides methods for deleting cards.
+ * It also provides a console interface.
  */
 public class CardDeletor {
     protected CardDeletor() {};
@@ -26,7 +27,7 @@ public class CardDeletor {
 
         Integer number = input.getCardNumber("Card number");
         Card card = cardManager.getCardByNumber(number);
-        this.delete(card);
+        delete(card);
     }
 
     /**
@@ -41,6 +42,7 @@ public class CardDeletor {
 
         cardManager.getCards().remove(card);
 
+        // Both json and binary serialization available
         // serializer.saveCardBinary();
         serializer.deleteCardJSON();
 
