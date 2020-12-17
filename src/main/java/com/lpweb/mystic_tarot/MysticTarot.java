@@ -24,10 +24,10 @@ public class MysticTarot
     public static void main( String[] args )
     {
         // To use the console instead of the GUI, use the CardManager open method.
-        // CardManager.getInstance().open();
+        CardManager.getInstance().open();
 
-        MainFrame gui = new MainFrame();
-        gui.setVisible(true);
+        // MainFrame gui = new MainFrame();
+        // gui.setVisible(true);
     }
 
     /**
