@@ -7,13 +7,11 @@ import com.lpweb.mystic_tarot.UserInput;
  * The CardCreator class provides methods to save a new card.
  * It also provides a console interface.
  */
-public class CardCreator {
+public class CardCreator implements CardAction {
     protected CardCreator() {};
 
-    /**
-     * Asks the user values for a new card and save the card.
-     */
-    public void createCard() {
+    @Override
+    public void openInConsole() {
         UserInput input = new UserInput();
 
         System.out.println("---- Card Creator ----");

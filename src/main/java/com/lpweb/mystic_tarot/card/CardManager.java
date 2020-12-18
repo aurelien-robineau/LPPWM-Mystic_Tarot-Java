@@ -35,6 +35,7 @@ public class CardManager {
         // Both json and binary serialization available
         // cards = CardSerializer.loadBinarySavedCards();
         cards = CardSerializer.loadJSONSavedCards();
+        sortCards();
     };
 
     /**
@@ -52,51 +53,42 @@ public class CardManager {
             System.out.println("* 1: Create new card");
             System.out.println("* 2: Edit card");
             System.out.println("* 3: Delete card");
-            System.out.println("* 4: Search card by number");
-            System.out.println("* 5: Search card by name");
-            System.out.println("* 6: Display cards");
-            System.out.println("* 7: Leave");
+            System.out.println("* 4: Search card");
+            System.out.println("* 5: Display cards");
+            System.out.println("* 6: Leave");
     
             // Ask action while invalid choice
             while (true) {
                 System.out.print("Action: ");
 
-                try {
-                    String action = input.nextLine();
+                String action = input.nextLine();
     
-                    if (action.equals("1")) {
-                        new CardCreator().createCard();
-                        break;
-                    }
-                    else if (action.equals("2")) {
-                        new CardEditor().editCard();
-                        break;
-                    }
-                    else if (action.equals("3")) {
-                        new CardDeletor().deleteCard();
-                        break;
-                    }
-                    else if (action.equals("4")) {
-                        searchCardByNumber();
-                        break;
-                    }
-                    else if (action.equals("5")) {
-                        searchCardByName();
-                        break;
-                    }
-                    else if (action.equals("6")) {
-                        displayCards();
-                        break;
-                    }
-                    else if (action.equals("7")) {
-                        close();
-                        break;
-                    }
-                    else {
-                        System.err.println("Invalid action.");
-                    }
-                } catch (NumberFormatException e) {
-                    System.err.println("Action must be an integer.");
+                if (action.equals("1")) {
+                    new CardCreator().openInConsole();
+                    break;
+                }
+                else if (action.equals("2")) {
+                    new CardEditor().openInConsole();
+                    break;
+                }
+                else if (action.equals("3")) {
+                    new CardDeletor().openInConsole();
+                    break;
+                }
+                else if (action.equals("4")) {
+                    new CardSearcher(cards).openInConsole();
+                    break;
+                }
+                else if (action.equals("5")) {
+                    displayCards();
+                    break;
+                }
+                else if (action.equals("6")) {
+                    close();
+                    break;
+                }
+                else {
+                    System.err.println("Invalid action.");
                 }
             }
         }
@@ -225,27 +217,5 @@ public class CardManager {
      */
     public void sortCards() {
         Collections.sort(cards);
-    }
-
-    //--------------------------------------------------------------------------
-    // Private methods
-    //--------------------------------------------------------------------------
-
-    /**
-     * Searches a card with a given number and prints it out.
-     */
-    private void searchCardByNumber() {
-        CardSearcher searcher = new CardSearcher(cards);
-        Card card = searcher.searchByNumber();
-        System.out.println(card != null ? card : "No card found.");
-    }
-
-    /**
-     * Searches a card with a given name and prints it out.
-     */
-    private void searchCardByName() {
-        CardSearcher searcher = new CardSearcher(cards);
-        Card card = searcher.searchByName();
-        System.out.println(card != null ? card : "No card found.");
     }
 }

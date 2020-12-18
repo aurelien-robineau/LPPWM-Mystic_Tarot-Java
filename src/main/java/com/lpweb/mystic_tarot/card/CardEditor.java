@@ -7,14 +7,11 @@ import com.lpweb.mystic_tarot.UserInput;
  * The CardEditor class provides methods for saving existing cards.
  * It alose provides a console interface.
  */
-public class CardEditor {
+public class CardEditor implements CardAction {
     protected CardEditor() {};
 
-    /**
-     * Asks the number of the card to edit, then the new card values.
-     * @return the edited card or null if no card to edit.
-     */
-    public void editCard() {
+    @Override
+    public void openInConsole() {
         UserInput input = new UserInput();
         CardManager cardManager = CardManager.getInstance();
 

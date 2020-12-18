@@ -7,7 +7,7 @@ import com.lpweb.mystic_tarot.UserInput;
 /**
  * The CardSearcher class provides methods to search cards in a list of cards.
  */
-public class CardSearcher {
+public class CardSearcher implements CardAction {
     /**
      * List of cards the CardSearcher will search into.
      */
@@ -24,6 +24,32 @@ public class CardSearcher {
     //--------------------------------------------------------------------------
     // Public methods
     //--------------------------------------------------------------------------
+
+    @Override
+    public void openInConsole() {
+        UserInput input = new UserInput();
+
+        System.out.println("---- Card Searcher ----");
+        System.out.println("* 1: Search card by number");
+        System.out.println("* 2: Search card by name");
+        
+        while (true) {
+            String action = input.getString("Search mode");
+            if (action.equals("1")) {
+                Card card = searchByNumber();
+                System.out.println(card != null ? card : "No card found.");
+                break;
+            }
+            else if (action.equals("2")) {
+                Card card = searchByName();
+                System.out.println(card != null ? card : "No card found.");
+                break;
+            }
+            else {
+                System.err.println("Invalid action.");
+            }
+        }
+    }
 
     /**
      * Displays a console interface asking the user a card number to search.

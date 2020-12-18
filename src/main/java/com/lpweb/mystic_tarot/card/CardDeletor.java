@@ -6,13 +6,11 @@ import com.lpweb.mystic_tarot.UserInput;
  * The CardDeletor provides methods for deleting cards.
  * It also provides a console interface.
  */
-public class CardDeletor {
+public class CardDeletor implements CardAction {
     protected CardDeletor() {};
 
-    /**
-     * Asks the user a card number to delete and delete the card.
-     */
-    public void deleteCard() {
+    @Override
+    public void openInConsole() {
         UserInput input = new UserInput();
         CardManager cardManager = CardManager.getInstance();
 
