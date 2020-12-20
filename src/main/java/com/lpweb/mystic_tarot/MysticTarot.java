@@ -11,6 +11,16 @@ import com.lpweb.mystic_tarot.gui.frames.MainFrame;
 public class MysticTarot 
 {
     /**
+     * Avalaibles user interfaces.
+     */
+    private enum Interface { CONSOLE, GRAPHICAL };
+
+    /**
+     * Interface to use when launching the app.
+     */
+    private static final Interface INTERFACE = Interface.GRAPHICAL;
+
+    /**
      * Scanner for user input.
      * This allows to fix the issue mentionned here :
      * https://stackoverflow.com/questions/14142853/close-a-scanner-linked-to-system-in
@@ -23,11 +33,17 @@ public class MysticTarot
      */
     public static void main( String[] args )
     {
-        // To use the console instead of the GUI, use the CardManager open method.
-        CardManager.getInstance().open();
-
-        // MainFrame gui = new MainFrame();
-        // gui.setVisible(true);
+        switch (INTERFACE) {
+            case CONSOLE:
+                CardManager.getInstance().open();
+                break;
+            case GRAPHICAL:
+                MainFrame gui = new MainFrame();
+                gui.setVisible(true);
+                break;
+            default:
+                System.err.println("No interface chosen.");
+        }
     }
 
     /**
