@@ -1,0 +1,269 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Project report - Mystic tarot}
+\author{Aurelien Robineau}
+\date{\today}
+
+\begin{document}
+
+\begin{titlepage}
+\maketitle
+\end{titlepage}
+
+\section*{Preamble}
+This is my report for the JAVA \textit{Mystic tarot} project. This project was
+realized for the professional bachelor's degree \textit{Web and Mobile Project}
+of \textit{Sorbonne University}.\\
+
+\noindent
+The intent of this report is to explain the architectural choices I made.
+
+\section{Analysis and modelling}
+
+\subsection{The \texttt{Card} class}
+There are two types of card in the game of tarot: Minor Arcanas and
+Major Arcanas. Most of the time, the mystic tarot only uses the Major
+Arcanas, so I chose to implement only one \texttt{Card} class for the
+Major Arcanas. It would be easy though to add Minor Arcanas just by
+making the current class abstract and having a new class for each type
+of card.\\
+
+\noindent
+Major Arcanas always have a number and a name. They must also have an
+image to represent the physical card. So cards will have the following
+properties:
+
+\begin{itemize}
+\itemsep0pt\parskip0pt\parsep0pt
+\item a \texttt{number} that must be unique. It is the ID of the card
+\item a \texttt{name}
+\item a \texttt{imagePath} to the file of the card's image
+\end{itemize}
+
+\noindent
+First I also put a \texttt{description} property but I realized later it was
+unused so I removed it.
+
+\subsection{Action classes}
+
+I chose to add a class per action on cards so actions are all
+independant and it is easy to add new ones.\\
+
+\noindent
+These classes - that I will call \textit{action classes} - will implement the
+\texttt{CardAction} interface. This interface should have two methods:
+one that actually do the action and another one that asks in the console
+informations about the action to the user. However, I only added the
+\texttt{openInConsole()} that opens a console interface because action classes
+were too differents (actions with a different number of arguments, some have
+sereval actions, etc\ldots{}). So I could not have a unique
+\texttt{performAction(Card card)} method as I first intended.
+
+\subsection{The \texttt{CardManager} class}
+
+Any action on cards will go through another class, the
+\texttt{CardManager}, wich calls itself methods from the action classes.
+This way action classes are hidden and if a change has to be made, one
+would only have to adapt the \texttt{CardManager} and not change
+anything in the rest of the code. The class contains a method that
+displays a menu in the console so the user can choose an action. It is
+responsible for the cards so it contains the list of cards.\\
+
+\noindent 
+As there is only one card deck in the game because there is a unique
+player, the \texttt{CardManager} is a singleton. This prevents to
+instanciate several \texttt{CardManager} for nothing and makes it usable
+globally via the \texttt{getInstance()} method, so we do not have to
+pass it as an argument to each method. One could argue that the game may
+have several players. In this case, we could remove the singleton
+pattern and rename the \texttt{CardManager} class to \texttt{Deck} for
+exemple. The \texttt{Deck} class could extend the \texttt{ArrayList}
+class for more convenience. Then each player would have a \texttt{deck}
+property and its own \texttt{Deck} instance. Since I only need one deck
+I will use the \texttt{CardManager} solution.
+
+\subsection{The \texttt{UserInput} class}
+
+I added the \texttt{UserInput} class later in the project because I
+realized I was doing the same verifications on the user input sereval
+times. For exemple I must check that the user entered an integer or an
+existing card number in different action classes.\\
+
+\noindent
+The \texttt{UserInput} class provides methods to ask the user to enter a
+value while the value does not pass the method validation.\\
+
+\noindent
+For exemple the \texttt{getInteger()} method asks the user to enter a
+value while it is not a integer.
+
+\section{Basic card system}
+
+It is requested to be able to add and delete cards, so I added to action
+classes:
+
+\begin{itemize}
+\itemsep0pt\parskip0pt\parsep0pt
+\item The \texttt{CardCreator} class
+\item The \texttt{CardDeletor} class
+\end{itemize}
+
+\noindent
+The \texttt{CardCreator} has a method that asks the user the values for
+the new card and another one that creates the card from these values.\\
+
+\noindent
+The \texttt{CardDeletor} has a method that asks the user wich card to
+delete and another one that actually delete the card.\\
+
+\noindent
+All action classes are protected so can only be used in the
+\texttt{card} package, so the only entry point for other packages is the
+\texttt{CardManager}.
+
+\section{Extension and research}
+
+\subsection{Editing cards}
+
+To edit cards, I just need to add a new action class named
+\texttt{CardEditor} wich has a method that asks the user wich card to
+edit and then the new card values. It has another method that updates
+the card values and saves it.
+
+\subsection{Displaying cards}
+
+To display the card list there is no need for an action class since the
+\texttt{CardManager} constains the list of cards. I overwrote the
+\texttt{toString()} method in the \texttt{Card} class and added a method
+in the \texttt{CardManager} that simply loops through the cards and
+displays them. However for more advanced display we could create a
+\texttt{CardDisplayer} action class.
+
+\subsection{Searching cards}
+
+For the research feature I added another action class named
+\texttt{CardSearcher}. It has a list of cards to search in and sereval
+search methods:
+
+\begin{itemize}
+\itemsep0pt\parskip0pt\parsep0pt
+\item one for searching a card by its \texttt{number}
+\item one for searching a card by its \texttt{name}
+\item one for searching cards by there \texttt{number} and \texttt{name} in the
+same time
+\end{itemize}
+
+\subsection{Adding a image}
+
+For the image I already had the \texttt{imagePath} property on cards so
+I just added a new field to be asked to the user in the
+\texttt{CardCreator} and \texttt{CardEditor} classes. The user must give
+the path to the image. I do not yet have an \texttt{image} property
+containing the image file because the image will not be rendered for
+now.
+
+\section{Saving cards}
+
+\subsection{Classic serialization}
+
+I added a new class named \texttt{CardSerializer} to serialize and save
+cards to files. The constructor takes a \texttt{Card} as an argument
+that will be the card to serialize. The \texttt{CardSerializer} has two
+methods to manage this card. One to create the card file, the other one
+to delete it. It also has a static method to load all cards from serial
+files.\\
+
+\noindent
+Files are saved in the \texttt{data/cards/serialized} directory. They are named
+\texttt{<card\_number>.serial}. Each file in this directory will be loaded when
+starting the application. Invalid or old files found when leaving the app will
+be deleted.
+
+\subsection{JSON serialization}
+
+To save cards as JSON I added the exact same methods but with the JSON
+logic using the Gson API.\\
+
+\noindent
+JSON files are saved in the same directory than the binary files. They are named
+\texttt{<card\_number>.json}.
+
+\noindent
+Both binary and JSON serialization are still available. It is possible
+to switch method by using the \texttt{SERIALIZATION\_METHOD} property of
+the \texttt{CardSerializer} class.
+
+\section{Graphical User Interface}
+
+\subsection{\texttt{gui} package}
+
+The card management files are all in the \texttt{card} package. To
+seperate clearly the GUI from the card management I added a new package
+\texttt{gui}. Since each action class is \texttt{protected}, the GUI can only
+rely on the \texttt{CardManager} singleton to interact with cards.
+Indeed the GUI does not have to know the logic behing the scenes, but
+must only call simple methods to manage cards.
+
+\subsection{The \texttt{GuiManager} class}
+
+For the same reasons I used a \texttt{CardManager} class, I created a
+\texttt{GuiMananger} class. Any action on the GUI will use this class
+wich contains the list of cards to display. So no action will be done
+directly into the action listeners. Again, this separation makes
+maintenance more easy and the application more scalable.\\
+
+\noindent
+Since there is only one list of cards to display, the
+\texttt{GuiManager} is also a singleton and can easily be used from
+anywhere in the GUI.
+
+\subsection{Package architecture}
+
+We will need frames to interact with the user. Theses frames will
+contain components (buttons, inputs, file inputs, etc\ldots{}) wich will
+trigger actions via action listeners.\\So the GUI package will have three
+sub-packages:
+
+\begin{itemize}
+\itemsep0pt\parskip0pt\parsep0pt
+\item \texttt{gui/frames}
+\item \texttt{gui/components}
+\item \texttt{gui/listeners}
+\end{itemize}
+
+\newpage
+\subsection{The main frame}
+
+I decided that the main frame will have:
+
+\begin{itemize}
+\itemsep0pt\parskip0pt\parsep0pt
+\item an area to display the cards
+\item a button to create a new card
+\item a text input to search cards
+\end{itemize}
+
+\noindent
+The input will update the shown cards everytime the user types in it and
+will show all cards if empty.\\
+
+\noindent
+Each card will be displayed in its own panel with buttons to delete and
+edit the card.\\
+
+\noindent
+The create and edit card forms will be displayed in there own frames.
+
+\subsection{Card images}
+When adding a image to a card, the image is copied to the
+\texttt{data/cards/images} directory. The card \texttt{imagePath} is set to the
+relative path of the new image so cards can be shared on different devices.
+When editing or deleting a card, the old image is removed from the directory.
+
+\subsection{Switching to console interface}
+The console interface is still available. It is easy to switch from a interface
+to the other with the \texttt{INTERFACE} property of the \texttt{MysticTarot}
+class.
+
+\end{document}
