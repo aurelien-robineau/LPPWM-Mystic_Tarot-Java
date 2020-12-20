@@ -19,6 +19,17 @@ import com.google.gson.GsonBuilder;
  * such as saving and loading card objects.
  */
 public class CardSerializer {
+
+    /**
+     * Available serialization methods to serialize cards.
+     */
+    private enum SerializationMethod { JSON, BINARY }
+
+    /**
+     * Serialization method to use to serialize cards.
+     */
+    private static final SerializationMethod SERIALIZATION_METHOD = SerializationMethod.JSON;
+
     /**
      * Card managed by the CardSerializer.
      */
@@ -49,10 +60,52 @@ public class CardSerializer {
     //--------------------------------------------------------------------------
 
     /**
+     * Saves the card to a file.
+     * The file name is <number_of_the_card>.<type>.
+     * The type depends on the choosen serialization method.
+     * @see #SERIALIZATION_METHOD
+     */
+    public void saveCard() {
+        switch (SERIALIZATION_METHOD) {
+            case JSON:
+                saveCardJSON();
+                break;
+            case BINARY:
+                saveCardBinary();
+                break;
+            default:
+                System.err.println("Incorrect serialization method.");
+        }
+    }
+
+    /**
+     * Deletes the serialization file of the card.
+     * The type of the files that will be deleted depends on the choosen
+     * serialization method.
+     * @see #SERIALIZATION_METHOD
+     */
+    public void deleteCard() {
+        switch (SERIALIZATION_METHOD) {
+            case JSON:
+                deleteCardJSON();
+                break;
+            case BINARY:
+                deleteCardBinary();
+                break;
+            default:
+                System.err.println("Incorrect serialization method.");
+        }
+    }
+
+    //--------------------------------------------------------------------------
+    // Private methods
+    //--------------------------------------------------------------------------
+
+    /**
      * Saves the card to a binary file.
      * The file name is <number_of_the_card>.serial.
      */
-    public void saveCardBinary() {
+    private void saveCardBinary() {
         try {
             FileOutputStream   fos = new FileOutputStream(cardFilenameBinary);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -75,7 +128,7 @@ public class CardSerializer {
     /**
      * Deletes the serialization binary file of the card.
      */
-    public void deleteCardBinary() {
+    private void deleteCardBinary() {
         File cardFile = new File(cardFilenameBinary);
         if (!cardFile.delete()) {
             System.err.println("Binary card file could not be deleted.");
@@ -86,7 +139,7 @@ public class CardSerializer {
      * Saves the card to a JSON file.
      * The file name is <number_of_the_card>.json.
      */
-    public void saveCardJSON() {
+    private void saveCardJSON() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         try (FileWriter writer = new FileWriter(cardFilenameJSON)) {
@@ -99,7 +152,7 @@ public class CardSerializer {
     /**
      * Deletes the serialization JSON file of the card.
      */
-    public void deleteCardJSON() {
+    private void deleteCardJSON() {
         File cardFile = new File(cardFilenameJSON);
         if (!cardFile.delete()) {
             System.err.println("JSON card file could not be deleted.");
@@ -111,10 +164,64 @@ public class CardSerializer {
     //--------------------------------------------------------------------------
 
     /**
+     * Loads all cards saved in files.
+     * The type of files that will be loaded depends on the choosen
+     * serialization method.
+     * @return the loaded cards.
+     * @see #SERIALIZATION_METHOD
+     */
+    public static ArrayList<Card> loadSaveCards() {
+        switch (SERIALIZATION_METHOD) {
+            case JSON:
+                return loadJSONSavedCards();
+            case BINARY:
+                return loadBinarySavedCards();
+            default:
+                System.err.println("Incorrect serialization method.");
+                return new ArrayList<>();
+        }
+    }
+
+    /**
+     * Delete old and invalid card files.
+     * Old card files are files with a number that do not match any of the card
+     * manager cards.
+     * Invalid card files are files with a name that do not respect the card
+     * file name syntax.
+     */
+    public static void cleanFiles() {
+        File directory = new File(Card.cardSavePath);
+        File[] files = directory.listFiles();
+
+        // The provided directory really is a directory
+        if (files != null) {
+            // For each file of the directory
+            for (File file : files) {
+                try {
+                    // Delete card file if card is not in the card manager card list
+                    Integer number = getCardNumberFromFileName(file.getName());
+                    if (!CardManager.getInstance().cardNumberExists(number)) {
+                        file.delete();
+                    }
+                } catch (Exception e) {
+                    // Delete invalid card files, but omit hidden files
+                    if (file.getName().charAt(0) != '.') {
+                        file.delete();
+                    }
+                }
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------
+    // Private static methods
+    //--------------------------------------------------------------------------
+
+    /**
      * Loads all cards saved in binary files.
      * @return the loaded cards
      */
-    public static ArrayList<Card> loadBinarySavedCards() {
+    private static ArrayList<Card> loadBinarySavedCards() {
         File directory = new File(Card.cardSavePath);
         File[] files = directory.listFiles();
         ArrayList<Card> loadedCards = new ArrayList<>();
@@ -151,7 +258,7 @@ public class CardSerializer {
      * Loads all cards saved in JSON files.
      * @return the loaded cards
      */
-    public static ArrayList<Card> loadJSONSavedCards() {
+    private static ArrayList<Card> loadJSONSavedCards() {
         File directory = new File(Card.cardSavePath);
         File[] files = directory.listFiles();
         ArrayList<Card> loadedCards = new ArrayList<>();
@@ -175,37 +282,6 @@ public class CardSerializer {
         }
 
         return loadedCards;
-    }
-
-    /**
-     * Delete old and invalid card files.
-     * Old card files are files with a number that do not match any of the card
-     * manager cards.
-     * Invalid card files are files with a name that do not respect the card
-     * file name syntax.
-     */
-    public static void cleanFiles() {
-        File directory = new File(Card.cardSavePath);
-        File[] files = directory.listFiles();
-
-        // The provided directory really is a directory
-        if (files != null) {
-            // For each file of the directory
-            for (File file : files) {
-                try {
-                    // Delete card file if card is not in the card manager card list
-                    Integer number = getCardNumberFromFileName(file.getName());
-                    if (!CardManager.getInstance().cardNumberExists(number)) {
-                        file.delete();
-                    }
-                } catch (Exception e) {
-                    // Delete invalid card files, but omit hidden files
-                    if (file.getName().charAt(0) != '.') {
-                        file.delete();
-                    }
-                }
-            }
-        }
     }
 
     //--------------------------------------------------------------------------

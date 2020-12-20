@@ -67,9 +67,7 @@ public class CardEditor implements CardAction {
         CardManager.getInstance().sortCards();
 
         CardSerializer serializer = new CardSerializer(card);
-        // Both json and binary serialization available
-        // serializer.saveCardBinary();
-        serializer.saveCardJSON();
+        serializer.saveCard();
 
         CardSerializer.cleanFiles();
     }
