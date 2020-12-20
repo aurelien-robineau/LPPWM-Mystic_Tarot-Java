@@ -32,9 +32,7 @@ public class CardManager {
      * Loads saved cards on init.
      */
     private CardManager() {
-        // Both json and binary serialization available
-        // cards = CardSerializer.loadBinarySavedCards();
-        cards = CardSerializer.loadJSONSavedCards();
+        cards = CardSerializer.loadSaveCards();
         sortCards();
     };
 

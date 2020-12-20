@@ -40,9 +40,7 @@ public class CardDeletor implements CardAction {
 
         cardManager.getCards().remove(card);
 
-        // Both json and binary serialization available
-        // serializer.saveCardBinary();
-        serializer.deleteCardJSON();
+        serializer.deleteCard();
 
         card.image.delete();
     }
